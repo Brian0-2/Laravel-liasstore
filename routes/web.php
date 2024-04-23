@@ -9,12 +9,24 @@ use App\Http\Controllers\ClotheController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProviderController;
 
+
 Route::get('/',[CustomerController::class,'index'])->name('index');
 Route::get('/adminggytcategory/{category}',[CustomerController::class,'category'])->name('category.show');
 Route::get('/subcategory/{subcategory}',[CustomerController::class,'subcategory'])->name('subcategory.show');
 
 
-Route::middleware('auth','verified')->group(function () {
+
+Route::middleware(['role:customer'])->group(function () {
+
+
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    
+});
+
+
+Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 
     Route::get('/admin',[AdminController::class,'index'])->name('admin');
 
@@ -29,9 +41,7 @@ Route::middleware('auth','verified')->group(function () {
 
     Route::resource('/categories',CategoryController::class);
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
 
 require __DIR__.'/auth.php';

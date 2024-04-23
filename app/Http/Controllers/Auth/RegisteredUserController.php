@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\RegisterRequest;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\RegisterRequest;
+use Illuminate\Auth\Events\Registered;
+use App\Providers\RouteServiceProvider;
 
 class RegisteredUserController extends Controller
 {
@@ -26,23 +27,19 @@ class RegisteredUserController extends Controller
 
     public function store(RegisterRequest $request): RedirectResponse
     {
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            "address" => $request -> address,
-            "postal_code" => $request -> postal_code,
-            "location" => $request -> location,
-            "municipality" => $request -> municipality,
-            "state" => $request -> state,
-            "phone_number" => $request -> phone_number,
-            'password' => Hash::make($request->password),
-        ]);
+        //Create user
+        $user = User::create($request -> all());
+        $user -> assignRole('customer');
 
         event(new Registered($user));
-
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+         // Redirect
+         if ($user->hasRole('admin')) {
+            //Route('admin.index')
+            return redirect(RouteServiceProvider::HOME);
+         }else{
+            return redirect() -> route('index');
+         }
     }
 }

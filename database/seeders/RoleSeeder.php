@@ -24,9 +24,9 @@ class RoleSeeder extends Seeder
         $role_customer = Role::create(['name' => 'customer','description' => 'Cliente']);
         $role_supervisor = Role::create(['name' => 'supervisor','description' => 'Supervisor']);
 
-        $user = User::create([
+        $admin = User::create([
             'name' => 'Brian',
-            'email' => 'sct115xd@hotmail.com',
+            'email' => 'admin@admin.com',
             'address' => 'Ana Maria Castellanos #182',
             'postal_code' => '47700',
             'location' => 'Capilla de Guadalupe',
@@ -38,7 +38,23 @@ class RoleSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
-        $user->assignRole($role_admin);
+        $admin->assignRole($role_admin);
+
+        $customer = User::create([
+            'name' => 'Divala',
+            'email' => 'correo@correo.com',
+            'address' => 'Ana Maria Castellanos #182',
+            'postal_code' => '47700',
+            'location' => 'Capilla de Guadalupe',
+            'municipality' => 'Tepatitlan de Morelos',
+            'state' => 'Jalisco',
+            'phone_number' => '3787313902',
+            'password' => Hash::make('12345678'),
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+        ]);
+
+        $customer->assignRole($role_customer);
 
         //!Users
         $permission_create_user = Permission::create(['name' => 'create.user','description' => 'Crear Usuarios']);

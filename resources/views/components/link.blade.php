@@ -1,5 +1,5 @@
 @php
-    $classes = 'text-xs text-gray-600 rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 -800 font-bold';
+    $classes = 'text-xs text-gray-600 rounded-md hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 -800 font-bold cursor-pointer';
 @endphp
 {{-- $attributes es una variable dentro de los componentes
     merge() es un metodo para unir los atributos que le pasemos pero en la vista

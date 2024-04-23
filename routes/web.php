@@ -4,12 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClotheController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProviderController;
 
 Route::get('/',[CustomerController::class,'index'])->name('index');
-Route::get('/category/{category}',[CustomerController::class,'category'])->name('category.show');
+Route::get('/adminggytcategory/{category}',[CustomerController::class,'category'])->name('category.show');
+Route::get('/subcategory/{subcategory}',[CustomerController::class,'subcategory'])->name('subcategory.show');
 
 
 Route::middleware('auth','verified')->group(function () {
@@ -24,6 +26,8 @@ Route::middleware('auth','verified')->group(function () {
     Route::resource('/providers', ProviderController::class);
 
     Route::resource('/clothes', ClotheController::class);
+
+    Route::resource('/categories',CategoryController::class);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

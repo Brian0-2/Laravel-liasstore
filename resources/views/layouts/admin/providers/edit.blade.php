@@ -78,11 +78,14 @@
 @endsection
 
 @push('javascript')
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         const button = document.querySelector('#button');
-        button.addEventListener('click', mostrarAlerta)
+        button.addEventListener('click', alert)
 
-        function mostrarAlerta(event){
+        function alert(event){
             event.preventDefault();
 
             Swal.fire({

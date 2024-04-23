@@ -33,7 +33,11 @@
                         @forelse ($clothes as $clothe)
                             <li wire:lazy wire:key='clothe-{{$clothe-> id}}' class=" flex flex-col items-center">
                                 <picture>
-                                        <img class="w-52 h-52" loading="lazy" src="{{ asset('storage/images')."/".$clothe -> photo }}" alt="Image {{ $clothe -> photo }}">
+                                </picture>
+                                <picture>
+                                    <source srcset="{{ asset('storage/images')."/".$clothe -> photo.'.webp' }}" type="image/webp" >
+                                    <source srcset="{{ asset('storage/images')."/".$clothe -> photo.'.png'}}" type="image/png" >
+                                        <img class="w-52 h-52" loading="lazy" src="{{ asset('storage/images')."/".$clothe -> photo.'.png' }}" alt="Image {{ $clothe -> photo }}">
                                 </picture>
 
                                 <p>{{ $clothe->clothe }}</p>

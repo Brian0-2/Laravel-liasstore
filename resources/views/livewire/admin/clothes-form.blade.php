@@ -44,6 +44,7 @@
         @endforeach
     </x-select>
 
+    {{--! Color --}}
     <x-input-label for="colorPicker" :value="__('Color/s')" />
     <div class="flex flex-wrap gap-4">
         @for ($i = 0; $i < $numInputsColor; $i++)

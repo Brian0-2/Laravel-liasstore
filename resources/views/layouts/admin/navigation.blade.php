@@ -29,7 +29,10 @@
                                 <i class="fa-solid fa-shirt"></i>
                                 {{ __('Prendas') }}
                             </x-nav-link>
-
+                            <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+                                <i class="fa-brands fa-shopify"></i>
+                                {{ __('Categorias') }}
+                            </x-nav-link>
                     @endauth
                 </div>
             </div>
@@ -103,6 +106,10 @@
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('clothes.index')" :active="request()->routeIs('clothes.index')">
                     <i class="fa-solid fa-shirt"></i>
+                    {{ __('Prendas') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+                    <i class="fa-brands fa-shopify"></i>
                     {{ __('Prendas') }}
                 </x-responsive-nav-link>
             </div>

@@ -62,7 +62,7 @@ class ClotheCreate extends Form
 
                 //Create path and uniqu image name.
                 $dir_name = 'storage/images';
-                $image_name = md5(uniqid(rand(), true));
+                $image_name = Str::uuid();
 
                 //Save images
                 $imagen_webp -> save($dir_name.'/'.$image_name.'.webp');
@@ -70,7 +70,7 @@ class ClotheCreate extends Form
                 // Insert image paths into database
                  Photo::create([
                     'clothe_id' => $clothe->id,
-                    'file_url' => $imagen_webp -> basename,
+                    'file_url' => $image_name,
                 ]);
             }
         }

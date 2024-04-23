@@ -13,6 +13,7 @@ use DragonCode\Support\Facades\Filesystem\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Str;
 
 // php artisan make:controller ClothesController --model=Clothes -r
 
@@ -114,6 +115,7 @@ class ClotheController extends Controller
 
             // Upload Files
             $images = $request->file('files');
+
             $newImages = [];
             //Bring to me
             $currentImages = $clothes->photos;
@@ -130,14 +132,14 @@ class ClotheController extends Controller
             //Create new Images
             foreach ($images as $image) {
 
-                $image_name = md5(uniqid(rand(), true));
+                $image_name = Str::uuid();
 
                 // Create image
                 $imagen_webp = Image::make($image->getRealPath())->fit(800, 800)->encode('webp', 80);
-                $newImages =  $image_name . '.webp';
+                $newImages =  $image_name;
 
                 //Save images
-                $imagen_webp->save($dir_name . '/' . $image_name . '.webp');
+                $imagen_webp->save($dir_name . '/' . $image_name);
                 Photo::create([
                     'clothe_id' => $clothes -> id,
                     'file_url' => $newImages

@@ -6,6 +6,6 @@
     </h2>
 @endsection
 @section('main')
-
+    
 @endsection
 

@@ -51,7 +51,9 @@
     </div>
     @livewireScripts()
     @stack('javascript')
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <footer>
+        <p>All rigths reserved &copy;</p>
+    </footer>
 </body>
 
 </html>

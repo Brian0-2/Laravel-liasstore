@@ -1,6 +1,7 @@
-import Swiper, { Navigation } from 'swiper';
+import Swiper, { Navigation, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const slider = document.querySelector('.slider');
 
@@ -33,7 +34,7 @@ document.addEventListener('livewire:init',() => {
             },
         }
 
-        Swiper.use([Navigation])
+        Swiper.use([Navigation, Pagination]);
         new Swiper('.slider', opciones)
     }
 });

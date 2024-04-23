@@ -19,7 +19,7 @@
             Volver
         </x-link>
         <div class="p-6 text-gray-900">
-            <form method="POST" action="{{ route('clothes.update', $clothes->id) }}" novalidate enctype="multipart/form-data" id="form">
+            <form method="POST" action="{{ route('clothes.update', $clothes->id ) }}" novalidate enctype="multipart/form-data" id="form">
                 @csrf
                 @method('put')
                 <p class="p-4">Datos personales</p>
@@ -87,11 +87,16 @@
                 <x-input-label :value="__('Imagenes Actuales')" />
                 <div class="flex flex-col flex-wrap md:flex-row md:gap-2">
                     @foreach ($photos as $picture)
-                        <div class="my-4">
-                            <img class="w-52 h-52" loading="lazy"
-                                src="{{ asset('storage/images/') . '/' . $picture->file_url }}"
-                                alt="Image {{ $picture->file_url }}">
-                        </div>
+                            <picture class="my-4">
+                                <source srcset="{{ asset('storage/images/').'/'. $picture -> file_url . '.webp'}}" type="image/webp" >
+                                <source srcset="{{ asset('storage/images/').'/'. $picture -> file_url . '.png'}}" type="image/png" >
+                                <img
+                                    loading="lazy"
+                                    width="200px"
+                                    height="300px"
+                                    src="{{ asset('storage/images/') . '/' . $picture->file_url . '.webp' }}"
+                                    alt="Image {{ $picture->file_url }}">
+                            </picture>
                     @endforeach
                 </div>
                 <x-input-label :value="__('Cambiar Imagenes')" />
@@ -99,7 +104,6 @@
 
 
                 {{-- !sizes --}}
-
                 <x-input-label :value="__('Tallas')" />
                 <x-input-error class="mt-2" :messages="$errors->get('clotheCreate.sizes')" />
                 @foreach ($sizes as $index => $size)

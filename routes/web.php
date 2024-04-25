@@ -11,18 +11,17 @@ use App\Http\Controllers\ProviderController;
 
 
 Route::get('/',[CustomerController::class,'index'])->name('index');
-Route::get('/adminggytcategory/{category}',[CustomerController::class,'category'])->name('category.show');
+Route::get('/category/{category}',[CustomerController::class,'category'])->name('category.show');
 Route::get('/subcategory/{subcategory}',[CustomerController::class,'subcategory'])->name('subcategory.show');
 
 
 
-Route::middleware(['role:customer'])->group(function () {
-
+Route::middleware(['role:customer|admin'])->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
 });
 
 

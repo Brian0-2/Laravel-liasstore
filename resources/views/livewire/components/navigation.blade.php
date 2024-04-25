@@ -46,13 +46,16 @@
                             <x-dropdown-link :href="route('profile.edit')">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('profile.edit')">
+                                {{ __('Pedidos') }}
+                            </x-dropdown-link>
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                    {{ __('Log out') }}
+                                    {{ __('Logout') }}
                                 </x-dropdown-link>
                             </form>
                         </x-slot>
@@ -87,18 +90,11 @@
         @auth
             {{-- Autenticado --}}
             <div class="pt-2 pb-3 space-y-1">
-                <x-responsive-nav-link :href="route('index')" :active="request()->routeIs('index')">
-                    <i class="fa-solid fa-house"></i>
-                    {{ __('Home') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
-                    <i class="fa-solid fa-user"></i>
-                    {{ __('Usuarios') }}
-                </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('providers.index')" :active="request()->routeIs('providers.index')">
-                    <i class="fa-solid fa-truck-fast"></i>
-                    {{ __('Proveedores') }}
-                </x-responsive-nav-link>
+                @foreach ($categories as $category)
+                    <x-responsive-nav-link :href="route('category.show', $category->id)"  :active="request()->segment(2) == $category->id">
+                        {{ $category -> name }}
+                    </x-responsive-nav-link>
+                @endforeach
             </div>
             <!-- Responsive Settings Options -->
             <div class="pt-4 pb-1 border-t border-gray-200">
@@ -109,7 +105,7 @@
                     </div>
                 @endif
                 <div class="mt-3 space-y-1">
-                    <x-responsive-nav-link :href="route('profile.edit')">
+                    <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
                         {{ __('Perfil') }}
                     </x-responsive-nav-link>
                     <form method="POST" action="{{ route('logout') }}">

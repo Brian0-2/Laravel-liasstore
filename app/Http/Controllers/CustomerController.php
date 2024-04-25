@@ -12,7 +12,11 @@ class CustomerController extends Controller
 {
     public function index()
     {
-        return view('layouts.customer.index');
+        $categories = Category::take(3) -> get();
+        return view('layouts.customer.index',[
+            'categories' => $categories
+        ]);
+
     }
 
     public function category(Category $category){
@@ -27,7 +31,8 @@ class CustomerController extends Controller
     }
 
     public function subcategory(subcategory $subcategory){
-        
+        $category = Category::find($subcategory -> category_id);
+
         $clothesWithPhotos = DB::table('clothes')
         ->select(
             'clothes.name',
@@ -40,7 +45,8 @@ class CustomerController extends Controller
 
         return view('layouts.customer.categories.subcategories', [
             'clothesWithPhotos' => $clothesWithPhotos,
-            'subcategory' => $subcategory
+            'subcategory' => $subcategory,
+            'category' => $category
         ]);
     }
 }

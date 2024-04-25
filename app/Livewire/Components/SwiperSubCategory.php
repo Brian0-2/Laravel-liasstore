@@ -8,11 +8,7 @@ class SwiperSubCategory extends Component
 {
 
     public $subCategories;
-
-    //     public function placeholder(){
-    //     return view('livewire.spiners.navLoading');
-    // }
-
+    public $category;
 
     public function render()
     {

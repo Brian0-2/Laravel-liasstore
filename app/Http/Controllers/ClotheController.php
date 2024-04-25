@@ -139,7 +139,7 @@ class ClotheController extends Controller
                 $newImages =  $image_name;
 
                 //Save images
-                $imagen_webp->save($dir_name . '/' . $image_name);
+                $imagen_webp->save($dir_name . '/' . $image_name.'.webp');
                 Photo::create([
                     'clothe_id' => $clothes -> id,
                     'file_url' => $newImages

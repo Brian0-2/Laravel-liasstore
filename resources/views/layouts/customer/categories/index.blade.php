@@ -7,5 +7,5 @@
 @endsection
 
 @section('main')
-    <livewire:components.swiper-sub-category :subCategories="$subCategories"/>
+     <livewire:components.swiper-sub-category :subCategories="$subCategories"/> 
 @endsection

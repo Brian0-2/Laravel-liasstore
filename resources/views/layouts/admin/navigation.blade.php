@@ -1,3 +1,4 @@
+@role('admin')
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -110,7 +111,7 @@
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
                     <i class="fa-brands fa-shopify"></i>
-                    {{ __('Prendas') }}
+                    {{ __('Categorias') }}
                 </x-responsive-nav-link>
             </div>
             <!-- Responsive Settings Options -->
@@ -138,3 +139,8 @@
         @endauth
     </div>
 </nav>
+@endrole
+
+@role('customer')
+    <livewire:components.navigation />
+@endrole

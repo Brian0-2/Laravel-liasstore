@@ -16,22 +16,22 @@
         <a class="mb-4 p-4 bg-slate-300 cursor-pointer" href="{{ route('categories.create') }}">
                 {{__('Create')}}
         </a>
-
         <div class="grid grid-cols-1 gap-4 font-bold sm:grid-cols-2 md:grid-cols-3">
             @foreach ($categories as $category )
-                <div class="flex flex-col items-center p-5 bg-slate-400">
+                <div class="flex flex-col items-center justify-center bg-slate-400">
                     <picture>
-                        <source srcset="{{asset('storage/images/') . $category -> file_url . '.webp'}}" type="image/webp">
-                        <source srcset="{{asset('storage/images/') . $category -> file_url . '.png'}}" type="image/png">
+                        <source srcset="{{ asset('storage/images/').'/'. $category -> file_url. '.webp'}}" type="image/webp" >
+                        <source srcset="{{ asset('storage/images/').'/'. $category -> file_url. '.png'}}" type="image/png" >
                         <img
                             loading="lazy"
                             width="200px"
                             height="300px"
-                            src="{{asset('storage/images/') . $category -> file_url. '.png'}}"
-                            alt="images {{ $category -> file_url }}">
+                            src="{{ asset('storage/images/').'/'. $category -> file_url. '.png' }}"
+                            alt="imagen {{  $category -> file_url }}">
                     </picture>
+
                     <h2>{{$category -> name}}</h2>
-                    <x-primary-button >{{__('Edit')}}</x-primary-button>
+                    <x-link href="{{route('categories.edit',$category -> id)}}" >{{__('Edit')}}</x-link>
                 </div>
             @endforeach
         </div>

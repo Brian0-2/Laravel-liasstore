@@ -16,8 +16,7 @@ Route::get('/subcategory/{subcategory}',[CustomerController::class,'subcategory'
 
 
 
-Route::middleware(['role:customer|admin'])->group(function () {
-
+Route::middleware(['auth', 'verified','role:customer|admin|supervisor'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 });

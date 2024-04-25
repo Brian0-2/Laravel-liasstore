@@ -35,8 +35,8 @@
                                 <picture>
                                 </picture>
                                 <picture>
-                                    <source srcset="{{ asset('storage/images')."/".$clothe -> photo.'.webp' }}" type="image/webp" >
-                                    <source srcset="{{ asset('storage/images')."/".$clothe -> photo.'.png'}}" type="image/png" >
+                                    <source srcset="{{ asset('storage/images/')."/".$clothe -> photo.'.webp' }}" type="image/webp" >
+                                    <source srcset="{{ asset('storage/images/')."/".$clothe -> photo.'.png'}}" type="image/png" >
                                         <img class="w-52 h-52" loading="lazy" src="{{ asset('storage/images')."/".$clothe -> photo.'.png' }}" alt="Image {{ $clothe -> photo }}">
                                 </picture>
 

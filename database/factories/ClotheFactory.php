@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Clothes>
  */
-class ClothesFactory extends Factory
+class ClotheFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,13 +17,11 @@ class ClothesFactory extends Factory
     public function definition(): array
     {
         return [
-
             'name' => fake()->name(),
             'description' => fake()->sentence(),
             'unit_price' => fake()->numberBetween(1, 500) . fake()->numberBetween(1, 99),
             'provider_id' => fake()->numberBetween(1, 6),
             'sub_category_id' => fake()->numberBetween(1, 15),
-
         ];
     }
 }

@@ -42,11 +42,11 @@ class ClothesIndex extends Component
                 'clothes.id as id',
                 'clothes.name as clothe',
                 'clothes.unit_price as price',
-                DB::raw('MIN(photos.file_url) as photo')
+                DB::raw('COALESCE(MIN(photos.file_url), "ruta_por_defecto") as photo')
             )
+            ->leftJoin('photos', 'photos.clothe_id', '=', 'clothes.id')
             ->join('sub_categories', 'clothes.sub_category_id', '=', 'sub_categories.id')
             ->join('categories', 'sub_categories.category_id', '=', 'categories.id')
-            ->join('photos', 'photos.clothe_id', '=', 'clothes.id')
             ->when($this->search, function ($query) {
                 $query->where('clothes.name', 'LIKE', '%' . $this->search . '%');
             })
@@ -62,4 +62,5 @@ class ClothesIndex extends Component
             'clothes' => $clothes
         ]);
     }
+
 }

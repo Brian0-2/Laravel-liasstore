@@ -1,7 +1,6 @@
 @extends('layouts.admin.app')
-@section('title')
-    home
-@endsection
+@section('title', 'Home')
+
 
 @section('header')
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">

@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Clothes;
+use App\Models\Clothe;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ClothesSeeder extends Seeder
+class ClotheSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Clothes::factory() -> count(500) -> create();
+        Clothe::factory() -> count(10) -> create();
     }
 }

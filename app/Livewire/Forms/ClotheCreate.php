@@ -65,7 +65,7 @@ class ClotheCreate extends Form
                 $image_name = Str::uuid();
 
                 //Save images
-                $imagen_webp -> save($dir_name.'/'.$image_name);
+                $imagen_webp -> save($dir_name.'/'.$image_name.'.webp');
 
                 // Insert image paths into database
                  Photo::create([

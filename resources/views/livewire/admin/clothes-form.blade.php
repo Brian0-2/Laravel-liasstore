@@ -101,6 +101,6 @@
     @endforeach
 
 
-    <x-button>{{ __('Crear') }}</x-button>
+    <x-button>{{ __('Create') }}</x-button>
 
 </form>

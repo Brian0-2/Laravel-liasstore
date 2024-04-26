@@ -12,8 +12,11 @@
 
 @section('main')
     <div class="p-5">
-        <form method="POST" action="{{ route('categories.update', $category->id) }}" enctype="multipart/form-data"
-            id="form">
+        <x-link :href="route('categories.index')" class="p-3 bg-red-500 text-white font-bold ">
+            Volver
+        </x-link>
+
+        <form method="POST" action="{{ route('categories.update', $category->id) }}" enctype="multipart/form-data" id="form" class="mt-3">
             @csrf
             @method('PUT')
             <x-input-label for="name" :value="__('Nombre de prenda')" />
@@ -22,13 +25,8 @@
             <x-input-label for="name" :value="__('Imagen actual')" />
 
             <div class="p-5 bg-slate-400">
-                <picture>
-                    <source srcset="{{ asset('storage/images/') . '/' . $category->file_url . '.webp' }}" type="image/webp">
-                    <source srcset="{{ asset('storage/images/') . '/' . $category->file_url . '.png' }}" type="image/png">
-                    <img loading="lazy" width="200px" height="300px"
-                        src="{{ asset('storage/images/') . '/' . $category->file_url . '.png' }}"
-                        alt="imagen {{ $category->file_url }}">
-                </picture>
+                <x-dynamic-images id="currentImage" :file_url="$category->file_url" />
+
                 <input type="hidden" name="currentFile" value="{{ $category->file_url }}">
 
                 <input type="file" id="new_file" name="new_file" accept=".jpg, .jpeg, .png"

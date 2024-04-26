@@ -4,8 +4,8 @@
 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
     {{ __('Home') }}
 </h2>
-
 @endsection
+
 @section('main')
 <!-- Hero Section -->
     <section class="h-screen w-screen overflow-x-hidden">

@@ -1,5 +1,12 @@
 @extends('layouts.customer.guest')
 
+@section('title', 'LiasStore | Registrate')
+@section('header')
+<h2 class="font-semibold text-xl text-gray-800 leading-tight">
+    {{ __('Registrate') }}
+</h2>
+@endsection
+
 @section('main')
 <div class="min-h-screen flex flex-col justify-center items-center bg-cover bg-center" style="background-image: url('{{ asset('storage/images/articuloEspecial.webp') }}');">
     <div class="w-full sm:max-w-md mt-6 px-6 py-8 bg-white bg-opacity-60 shadow-lg rounded-lg backdrop-filter backdrop-blur-md">

@@ -1,4 +1,10 @@
 @extends('layouts.customer.guest')
+@section('title', 'LiasStore | Iniciar Sesion')
+@section('header')
+<h2 class="font-semibold text-xl text-gray-800 leading-tight">
+    {{ __('Login') }}
+</h2>
+@endsection
 
 @section('main')
 <div class="min-h-screen flex flex-col justify-center items-center bg-cover bg-center" style="background-image: url('{{ asset('storage/images/articuloEspecial.webp') }}');">

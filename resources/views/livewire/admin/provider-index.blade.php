@@ -35,8 +35,11 @@
                             <td class="">{{ $provider->name }}</td>
                             <td class="">{{ $provider->nickname }}</td>
                             <td class="flex justify-end">
-                                <a href="{{ route('providers.edit', $provider->id) }}"
-                                    class="text-white bg-gradient-to-r bg-green-500  uppercase dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Editar</a>
+                                <x-link
+                                    href="{{ route('providers.edit', $provider->id) }}"
+                                    class="text-white bg-gradient-to-r bg-green-500  uppercase dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                                    >Editar
+                                </x-link>
                                 <form method="POST" action="{{ route('providers.destroy', $provider->id) }}">
                                     @csrf
                                     @method('DELETE')

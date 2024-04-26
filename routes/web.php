@@ -8,7 +8,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClotheController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProviderController;
-
+use App\Http\Controllers\SubCategoryController;
 
 Route::get('/',[CustomerController::class,'index'])->name('index');
 Route::get('/category/{category}',[CustomerController::class,'category'])->name('category.show');
@@ -36,6 +36,10 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::resource('/clothes', ClotheController::class);
 
     Route::resource('/categories',CategoryController::class);
+
+    Route::get('/subcategories/create/{category}', [SubCategoryController::class, 'create'])->name('subcategories.create');
+
+    Route::resource('/subcategories',SubCategoryController::class)->except(['create']);
 
 });
 

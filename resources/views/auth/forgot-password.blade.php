@@ -1,10 +1,17 @@
 @extends('layouts.customer.guest')
+
+@section('title', 'LiasStore | ¿Olvidaste tu contraseña?')
+@section('header')
+<h2 class="font-semibold text-xl text-gray-800 leading-tight">
+    {{ __('¿Olvidate tu Contraseña?') }}
+</h2>
+@endsection
+
 @section('main')
 <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
     <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
         <div class="mb-4 text-sm text-gray-600">
-            {{ __('¿Olvidaste tu contraseña? Ningún problema. Simplemente háganos saber su dirección de correo electrónico y le enviaremos un enlace para restablecer su contraseña que le permitirá elegir una nueva.
-                    ') }}
+            {{ __('¿Olvidaste tu contraseña? Ningún problema. Simplemente háganos saber su dirección de correo electrónico y le enviaremos un enlace para restablecer su contraseña que le permitirá elegir una nueva.') }}
         </div>
 
         <!-- Session Status -->

@@ -84,7 +84,7 @@ class CategoryController extends Controller
 
         if($request -> file('new_file')){
             $image = $request -> file('new_file');
-            
+
             $dir_name = 'storage/images/';
             $current_image = $category->file_url;
 
@@ -120,5 +120,19 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+
+        $dir_name = 'storage/images/';
+        $current_image = $category->file_url;
+
+        $current_image_path = $dir_name . $current_image . '.webp';
+
+        // Verificar la existencia y eliminar la imagen actual si existe
+        if (File::exists($current_image_path)) {
+            File::delete($current_image_path);
+        }
+
+        $category -> delete();
+
+        return redirect() -> route('categories.index') -> with('message-deleted','categoria eliminada correctamente!');
     }
 }

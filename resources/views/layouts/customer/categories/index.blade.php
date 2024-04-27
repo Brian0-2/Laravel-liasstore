@@ -1,5 +1,9 @@
 @extends('layouts.customer.guest')
 
+@section('title', 'LiasStore | categoria: ' . $category->name)
+
+
+
 @section('header')
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         {{ $category -> name }}
@@ -7,5 +11,5 @@
 @endsection
 
 @section('main')
-     <livewire:components.swiper-sub-category :subCategories="$subCategories"/> 
+     <livewire:components.swiper-sub-category :subCategories="$subCategories"/>
 @endsection

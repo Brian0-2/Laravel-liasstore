@@ -13,6 +13,7 @@ use App\Http\Controllers\SubCategoryController;
 Route::get('/',[CustomerController::class,'index'])->name('index');
 Route::get('/category/{category}',[CustomerController::class,'category'])->name('category.show');
 Route::get('/subcategory/{subcategory}',[CustomerController::class,'subcategory'])->name('subcategory.show');
+Route::get('clothe/{clothe}',[CustomerController::class,'clothe']) -> name('clothe.show');
 
 
 

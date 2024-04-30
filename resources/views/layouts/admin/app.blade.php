@@ -37,16 +37,10 @@
         @include('layouts.admin.partials.message-updated')
         @include('layouts.admin.partials.message-deleted')
         @include('layouts.admin.partials.message-created')
+        
         <!-- Page Content -->
         <main>
-            <div class="flex flex-wrap -mx-3 mb-5">
-                <div class="w-full max-w-full px-3 mb-6 mx-auto">
-                    <div
-                        class="relative flex-[1_auto] flex flex-col break-words min-w-0 bg-clip-border rounded-[.95rem] bg-white m-5">
-                        @yield('main')
-                    </div>
-                </div>
-            </div>
+            @yield('main')
         </main>
     </div>
     @livewireScripts()

@@ -1,4 +1,3 @@
-<!-- component -->
 @extends('layouts.admin.app')
 
 @section('title')
@@ -6,89 +5,115 @@
 @endsection
 
 @section('header')
-    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        <i class="fa-solid fa-pen-to-square"></i>
-        <i class="fa-solid fa-user"></i>
-        {{ __('Editar Usuario') }}
+    <h2 class="font-semibold text-2xl text-gray-800 leading-tight flex items-center space-x-2">
+        <i class="fa-solid fa-pen-to-square text-indigo-600"></i>
+        <i class="fa-solid fa-user text-indigo-600"></i>
+        <span class="hover:text-indigo-700 transition-colors duration-300">
+            {{ __('Editar Usuario') }}
+        </span>
     </h2>
 @endsection
 
 @section('main')
     <div class="p-5">
-        <x-link :href="route('users.index')" class="bg-red-400 p-3 text-white font-bold">
+        <x-link :href="route('users.index')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold p-2 rounded-md transition-colors duration-300">
             Volver
         </x-link>
 
-        <div class="p-6 text-gray-900">
+        <div class="bg-white shadow-lg rounded-lg p-6 mt-4">
             <form method="POST" action="{{ route('users.update', $user->id) }}" novalidate>
                 @csrf
-                @method('put')
-                <p class="p-4">Datos personales</p>
+                @method('PUT')
 
-                <x-input-label for="name" :value="__('Nombre')" />
-                <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)"
-                    required autofocus autocomplete="name" />
-                <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                <p class="text-xl font-semibold mb-4">Datos personales</p>
 
-                <x-input-label for="email" :value="__('Correo')" />
-                <x-text-input id="email" name="email" type="text" class="mt-1 block w-full" :value="old('email', $user->email)"
-                    required autofocus autocomplete="email" />
-                <x-input-error class="mt-2" :messages="$errors->get('email')" />
+                <div class="mb-4">
+                    <x-input-label for="name" :value="__('Nombre')" />
+                    <x-text-input id="name" name="name" type="text" class="mt-1 block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                        :value="old('name', $user->name)" required autofocus autocomplete="name" />
+                    <x-input-error class="mt-2" :messages="$errors->get('name')" />
+                </div>
 
-                <p class="p-4">Direccion</p>
+                <div class="mb-4">
+                    <x-input-label for="email" :value="__('Correo')" />
+                    <x-text-input id="email" name="email" type="email" class="mt-1 block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                        :value="old('email', $user->email)" required />
+                    <x-input-error class="mt-2" :messages="$errors->get('email')" />
+                </div>
 
-                <x-input-label for="address" :value="__('Direccion')" />
-                <x-text-input id="address" name="address" type="text" class="mt-1 block w-full" :value="old('address', $user->address)"
-                    required autofocus autocomplete="address" />
-                <x-input-error class="mt-2" :messages="$errors->get('address')" />
+                <p class="text-xl font-semibold mb-4">Dirección</p>
 
-                <x-input-label for="postal_code" :value="__('Codigo postal')" />
-                <x-text-input id="postal_code" name="postal_code" type="text" class="mt-1 block w-full"
-                    :value="old('postal_code', $user->postal_code)" required autofocus autocomplete="postal_code" />
-                <x-input-error class="mt-2" :messages="$errors->get('postal_code')" />
+                <div class="mb-4">
+                    <x-input-label for="address" :value="__('Dirección')" />
+                    <x-text-input id="address" name="address" type="text" class="mt-1 block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                        :value="old('address', $user->address)" required />
+                    <x-input-error class="mt-2" :messages="$errors->get('address')" />
+                </div>
 
-                <x-input-label for="location" :value="__('Localidad')" />
-                <x-text-input id="location" name="location" type="text" class="mt-1 block w-full" :value="old('location', $user->location)"
-                    required autofocus autocomplete="location" />
-                <x-input-error class="mt-2" :messages="$errors->get('location')" />
-
-                <x-input-label for="municipality" :value="__('Municipio')" />
-                <x-text-input id="municipality" name="municipality" type="text" class="mt-1 block w-full"
-                    :value="old('municipality', $user->municipality)" required autofocus autocomplete="municipality" />
-                <x-input-error class="mt-2" :messages="$errors->get('municipality')" />
-
-                <x-input-label for="state" :value="__('Estado')" />
-                <x-text-input id="state" name="state" type="text" class="mt-1 block w-full" :value="old('state', $user->state)"
-                    required autofocus autocomplete="state" />
-                <x-input-error class="mt-2" :messages="$errors->get('state')" />
-
-                <x-input-label for="phone_number" :value="__('Telefono')" />
-                <x-text-input id="phone_number" name="phone_number" type="text" class="mt-1 block w-full"
-                    :value="old('phone_number', $user->phone_number)" required autofocus autocomplete="phone_number" />
-                <x-input-error class="mt-2" :messages="$errors->get('phone_number')" />
-
-                <x-input-error class="mt-2" :messages="$errors->get('roles')" />
-
-                <x-input-label class="font-bold text-4xl p-4" for="phone_number" :value="__('Roles')" />
-                @foreach ($roles as $role)
-                    <div class="">
-                        <input type="checkbox" name="roles[]" value="{{ $role->id }}"
-                            @if ($user->roles->contains($role->id)) checked @endif />
-                        <label>{{ $role->description }}</label>
+                <!-- Código postal, localidad, municipio, estado, teléfono -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="mb-4">
+                        <x-input-label for="postal_code" :value="__('Código postal')" />
+                        <x-text-input id="postal_code" name="postal_code" type="text" class="mt-1 block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                            :value="old('postal_code', $user->postal_code)" required />
+                        <x-input-error class="mt-2" :messages="$errors->get('postal_code')" />
                     </div>
-                @endforeach
-                <x-input-label class="font-bold text-4xl p-4" for="phone_number" :value="__('Permisos')" />
-                @foreach ($permissions as $permission)
-                    <div class="p-2">
-                        <input class="form-checkbox cursor-pointer ms-2 h-6 w-6 text-red-900" type="checkbox"
-                            name="permissions[]" value="{{ $permission->id }}"
-                            @if ($user->permissions->contains($permission->id)) checked @endif />
-                        <label>{{ $permission->description }}</label>
-                    </div>
-                @endforeach
 
-                <x-primary-button>{{ __('Editar') }}</x-primary-button>
+                    <div class="mb-4">
+                        <x-input-label for="location" :value="__('Localidad')" />
+                        <x-text-input id="location" name="location" type="text" class="mt-1 block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                            :value="old('location', $user->location)" required />
+                        <x-input-error class="mt-2" :messages="$errors->get('location')" />
+                    </div>
+
+                    <div class="mb-4">
+                        <x-input-label for="municipality" :value="__('Municipio')" />
+                        <x-text-input id="municipality" name="municipality" type="text" class="mt-1 block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                            :value="old('municipality', $user->municipality)" required />
+                        <x-input-error class="mt-2" :messages="$errors->get('municipality')" />
+                    </div>
+
+                    <div class="mb-4">
+                        <x-input-label for="state" :value="__('Estado')" />
+                        <x-text-input id="state" name="state" type="text" class="mt-1 block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                            :value="old('state', $user->state)" required />
+                        <x-input-error class="mt-2" :messages="$errors->get('state')" />
+                    </div>
+
+                    <div class="mb-4">
+                        <x-input-label for="phone_number" :value="__('Teléfono')" />
+                        <x-text-input id="phone_number" name="phone_number" type="tel" class="mt-1 block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+                            :value="old('phone_number', $user->phone_number)" required />
+                        <x-input-error class="mt-2" :messages="$errors->get('phone_number')" />
+                    </div>
+                </div>
+
+                <p class="text-xl font-semibold mb-4">Roles</p>
+
+                <div class="mb-4">
+                    @foreach ($roles as $role)
+                        <div class="mb-2 flex items-center">
+                            <input type="checkbox" name="roles[]" value="{{ $role->id }}"
+                                @if ($user->roles->contains($role->id)) checked @endif class="mr-2" />
+                            <label class="text-gray-700">{{ $role->description }}</label>
+                        </div>
+                    @endforeach
+                </div>
+
+                <p class="text-xl font-semibold mb-4">Permisos</p>
+
+                <div class="mb-4">
+                    @foreach ($permissions as $permission)
+                        <div class="mb-2 flex items-center">
+                            <input type="checkbox" name="permissions[]" value="{{ $permission->id }}"
+                                @if ($user->permissions->contains($permission->id)) checked @endif class="mr-2" />
+                            <label class="text-gray-700">{{ $permission->description }}</label>
+                        </div>
+                    @endforeach
+                </div>
+
+                <x-primary-button class="bg-indigo-600 hover:bg-indigo-700">{{ __('Editar') }}</x-primary-button>
             </form>
         </div>
     </div>
-    @endsection
+@endsection

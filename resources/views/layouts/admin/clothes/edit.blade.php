@@ -95,7 +95,7 @@
                         <x-input-label :value="__('Imágenes Actuales')" />
                         <div class="flex flex-col flex-wrap md:flex-row md:gap-2">
                             @foreach ($photos as $picture)
-                                <x-dynamic-images :file_url="$picture -> file_url" />
+                                <x-images :file_url="$picture -> file_url" />
                             @endforeach
                         </div>
                         <x-input-label :value="__('Cambiar Imágenes')" />

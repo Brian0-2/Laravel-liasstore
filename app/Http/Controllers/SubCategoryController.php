@@ -41,11 +41,6 @@ class SubCategoryController extends Controller
     public function store(SubCategoryRequest $request)
     {
 
-        $request -> validate([
-            'file_url' => 'required',
-            'category_id' => 'required|exists:categories,id',
-        ]);
-
          if($request -> hasFile('file_url')){
 
              $dir_name = 'storage/images';
@@ -87,8 +82,13 @@ class SubCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(SubCategoryRequest $request, SubCategory $subcategory)
+    public function update(Request $request, SubCategory $subcategory)
     {
+        $this->validate($request, [
+            'name' => 'required|max:250|min:3'
+        ],[],[
+            'name' => 'Nombre'
+        ]);
         //Current category
         $currentSubcategory = $subcategory -> category;
 

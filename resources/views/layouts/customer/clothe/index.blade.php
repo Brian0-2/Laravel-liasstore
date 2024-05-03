@@ -2,6 +2,14 @@
 
 @section('title', 'LiasStore | articulo: '. $clothe -> name)
 
+@section('header')
+    <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <a href="{{route('category.show', $category -> id)}}">{{ $category -> name }}</a> >
+        <a href="{{ route('subcategory.show', $subcategory -> id)}}"> {{$subcategory -> name}} </a> >
+        <a href="{{ route('clothe.show', $clothe -> id)}}"> {{$clothe -> name}} </a>
+    </h2>
+@endsection
+
 @section('main')
     <section class="grid grid-cols-1 gap-4  justify-items-center sm:grid-cols-2 p-5">
         <div class="">

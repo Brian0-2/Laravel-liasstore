@@ -33,10 +33,7 @@
         <div class=" grid grid-cols-1 justify-items-center items-center sm:grid-cols-2">
             <div class="">
                 <x-input-label for="name" value="Categoria: {{ $category->name }}" class="mt-3" />
-                <img loading="lazy" width="200px" height="300px" src="{{ asset('storage/images/') . '/' . $category->file_url . '.webp' }}"
-                    alt="Imagen {{ $category->file_url }}"
-                    class="rounded-lg"
-                >
+                    <x-images :file_url="$category->file_url" />
                     <ul class="list-none max-h-60 overflow-y-auto overflow-hidden subcategory">
                         @foreach ($subcategories as $index => $subcategory)
                             <li class="flex justify-evenly items-center text-lg font-semibold text-gray-800 border-b py-2">

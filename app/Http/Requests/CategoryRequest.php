@@ -22,7 +22,7 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|min:3',
+            'name' => 'required|max:250|min:3',
             'file_url' => 'required|image|mimes:jpeg,png,jpg|max:1024',
         ];
     }

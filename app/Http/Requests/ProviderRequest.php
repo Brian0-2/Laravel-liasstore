@@ -18,7 +18,7 @@ class ProviderRequest extends FormRequest
     {
         return [
             //TODO
-            'name' => ['required']
+            'name' => ['required','max:250','min:3']
         ];
     }
 }

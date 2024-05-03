@@ -52,15 +52,20 @@ class CustomerController extends Controller
     }
 
     public function clothe(Clothe $clothe){
+
        $photos =  $clothe -> photos;
        $colors = $clothe -> colors;
        $sizes = $clothe -> sizes;
+       $subcategory = SubCategory::find($clothe -> sub_category_id);
+       $category = Category::find($subcategory -> category_id);
 
         return view('layouts.customer.clothe.index',[
             'clothe' => $clothe,
             'photos' =>  $photos,
             'colors' => $colors,
             'sizes' =>  $sizes,
+            'subcategory' => $subcategory,
+            'category' => $category
         ]);
     }
 }

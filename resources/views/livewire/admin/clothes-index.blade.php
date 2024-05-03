@@ -32,14 +32,8 @@
                     <ul class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
                         @forelse ($clothes as $clothe)
                             <li wire:lazy wire:key='clothe-{{$clothe-> id}}' class=" flex flex-col items-center">
-                                <picture>
-                                </picture>
-                                <picture>
-                                    <source srcset="{{ asset('storage/images/')."/".$clothe -> photo.'.webp' }}" type="image/webp" >
-                                    <source srcset="{{ asset('storage/images/')."/".$clothe -> photo.'.png'}}" type="image/png" >
-                                        <img class="w-52 h-52" loading="lazy" src="{{ asset('storage/images')."/".$clothe -> photo.'.png' }}" alt="Image {{ $clothe -> photo }}">
-                                </picture>
 
+                                <x-images :file_url="$clothe -> photo" />
                                 <p>{{ $clothe->clothe }}</p>
                                 <p>$ {{ $clothe->price }}</p>
                                 <div class="flex">

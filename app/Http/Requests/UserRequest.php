@@ -18,7 +18,7 @@ class UserRequest extends FormRequest
     {
         return [
             //TODO
-            'name' => ['required','min:5'],
+            'name' => ['required','min:5', 'max:250'],
             // 'roles' => ['required']
         ];
     }

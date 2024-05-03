@@ -18,10 +18,13 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     @livewireStyles()
+    
 </head>
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
+
         <!--Navigation-->
         <header class="bg-white shadow">
             @include('layouts.admin.navigation')
@@ -33,21 +36,25 @@
                 @yield('header')
             </div>
         </div>
+
         <!--Alerts-->
         @include('layouts.admin.partials.message-updated')
         @include('layouts.admin.partials.message-deleted')
         @include('layouts.admin.partials.message-created')
-        
+
         <!-- Page Content -->
         <main>
             @yield('main')
         </main>
     </div>
+
     @livewireScripts()
+
     @stack('javascript')
+
     <footer>
         <p>All rigths reserved &copy;</p>
     </footer>
-</body>
 
+</body>
 </html>

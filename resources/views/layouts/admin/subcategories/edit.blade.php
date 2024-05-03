@@ -17,7 +17,7 @@
 
             <div id="currentImage">
                 <x-input-label  for="name" :value="__('Imagen actual')" />
-                <x-dynamic-images class="currentInputImage" :file_url="$subcategory->file_url" />
+                <x-images class="currentInputImage" :file_url="$subcategory->file_url" />
             </div>
 
             <x-input-label for="file" :value="__('Cambiar Imagen')" />

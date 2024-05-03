@@ -22,8 +22,8 @@ class SubCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'file_url' => 'nullable|image|mimes:jpeg,png,jpg,webp,avif|max:1024',
+            'name' => 'required|string|max:250|min:3',
+            'file_url' => 'required|image|mimes:jpeg,png,jpg,webp,avif|max:1024',
         ];
     }
 
@@ -35,4 +35,5 @@ class SubCategoryRequest extends FormRequest
             'file_url' => 'Imagen',
         ];
     }
+
 }

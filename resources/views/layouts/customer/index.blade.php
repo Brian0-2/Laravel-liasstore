@@ -16,7 +16,7 @@
             @foreach ($categories as $category )
 
             <a href="{{ route('category.show', $category -> id) }}" class="relative group overflow-hidden w-full h-full">
-                <x-dynamic-images :file_url="$category -> file_url" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+                <x-images :file_url="$category -> file_url" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
 
                 <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div class="text-center">

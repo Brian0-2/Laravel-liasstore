@@ -25,7 +25,7 @@
             <x-input-label for="name" :value="__('Imagen actual')" />
 
             <div class="p-5 bg-slate-400">
-                <x-dynamic-images id="currentImage" :file_url="$category->file_url" />
+                <x-images id="currentImage" :file_url="$category->file_url" />
 
                 <input type="hidden" name="currentFile" value="{{ $category->file_url }}">
 

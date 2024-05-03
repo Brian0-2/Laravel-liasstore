@@ -19,7 +19,7 @@
             <x-input-label  value="{{'Detalles: ' . $clothe -> description}}" />
             <x-input-label :value="__('Imagenes de prenda')" />
             @foreach ($photos as $photo)
-                <x-dynamic-images :file_url="$photo -> file_url" />
+                <x-images :file_url="$photo -> file_url" />
             @endforeach
             <x-input-label :value="__('Colores Disponibles')" />
             @forelse ($colors as $color)

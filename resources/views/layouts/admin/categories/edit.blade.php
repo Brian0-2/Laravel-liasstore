@@ -25,8 +25,9 @@
             <x-input-label for="name" :value="__('Imagen actual')" />
 
             <div class="p-5 bg-slate-400">
-                <x-images id="currentImage" :file_url="$category->file_url" />
-
+                <div id="currentImage">
+                    <x-images id="currentImage" :file_url="$category->file_url" />
+                </div>
                 <input type="hidden" name="currentFile" value="{{ $category->file_url }}">
 
                 <input type="file" id="new_file" name="new_file" accept=".jpg, .jpeg, .png"
@@ -65,6 +66,10 @@
                     preview.src = e.target.result;
                     preview.style.display = 'block';
                     spinner.style.display = 'none';
+
+                    //hide current image
+                    const currentImage = document.querySelector('#currentImage')
+                    currentImage.style.display = 'none';
                 }
 
                 reader.readAsDataURL(file);

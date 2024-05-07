@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class OrderClothesController extends Controller
+class CartController extends Controller
 {
-    
+    //
     public function index(){
 
-        return view('layouts.admin.orders.index',[
+        return view('layouts.customer.shopping.index',[
 
         ]);
     }

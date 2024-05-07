@@ -11,11 +11,15 @@
 
 @section('main')
     <section class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-        @forelse ($clothesWithPhotos as $clothe )
+        @forelse ($clothes as $clothe )
         <div class="bg-white my-4 mx-4 m-auto flex flex-col items-center p-5">
             <x-images :file_url="$clothe -> file_url" />
             <p>{{$clothe -> name}}</p>
-            <p>{{ $clothe -> unit_price }}</p>
+            <div class="flex justify-evenly gap-2">
+                @foreach ($clothe -> sizes as $size )
+                    <p>{{$size}}</p>
+                @endforeach
+            </div>
             <a href="{{ route('clothe.show', $clothe -> id)}}" class="bg-orange-300 p-2 font-bold rounded-lg cursor-pointer">Detalles</a>
         </div>
         @empty

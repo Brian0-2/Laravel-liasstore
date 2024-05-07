@@ -23,7 +23,6 @@ class CustomerController extends Controller
 
         $subCategories = SubCategory::where('category_id', $category -> id) -> get();
 
-
         return view('layouts.customer.categories.index',[
             'category' => $category,
             'subCategories' => $subCategories,
@@ -31,21 +30,19 @@ class CustomerController extends Controller
     }
 
     public function subcategory(subcategory $subcategory){
-        $category = Category::find($subcategory -> category_id);
+        $category = Category::find($subcategory->category_id);
 
-        $clothesWithPhotos = DB::table('clothes')
-        ->select(
-            'clothes.id',
-            'clothes.name',
-            'clothes.unit_price',
-            DB::raw('MIN(photos.file_url) as file_url'))
-        ->leftJoin('photos', 'clothes.id', '=', 'photos.clothe_id')
-        ->where('clothes.sub_category_id', $subcategory->id)
-        ->groupBy('clothes.id', 'clothes.name', 'clothes.unit_price')
-        ->paginate(50);
+        $clothes = Clothe::with(['photos', 'sizes'])
+        ->where('sub_category_id', $subcategory->id)
+        ->paginate(10);
+
+        $clothes->each(function ($clothe) {
+            $clothe->file_url = $clothe->photos->min('file_url');
+            $clothe->sizes = $clothe->sizes->pluck('name', 'id')->toArray();
+        });
 
         return view('layouts.customer.categories.subcategories', [
-            'clothesWithPhotos' => $clothesWithPhotos,
+            'clothes' => $clothes,
             'subcategory' => $subcategory,
             'category' => $category
         ]);

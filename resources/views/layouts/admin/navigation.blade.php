@@ -34,6 +34,10 @@
                                 <i class="fa-brands fa-shopify"></i>
                                 {{ __('Categorias') }}
                             </x-nav-link>
+                            <x-nav-link :href="route('order.index')" :active="request()->routeIs('order.index')">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                {{ __('Pedidos') }}
+                            </x-nav-link>
                     @endauth
                 </div>
             </div>
@@ -112,6 +116,10 @@
                 <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
                     <i class="fa-brands fa-shopify"></i>
                     {{ __('Categorias') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('order.index')" :active="request()->routeIs('order.index')">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    {{ __('Pedidos') }}
                 </x-responsive-nav-link>
             </div>
             <!-- Responsive Settings Options -->

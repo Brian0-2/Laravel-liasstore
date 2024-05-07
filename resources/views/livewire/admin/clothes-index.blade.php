@@ -1,4 +1,4 @@
-<div class="py-5">
+<div class="p-5">
     <div class="flex flex-col gap-4 container mx-auto md:flex-row sm:px-6 lg:px-8">
         <!-- Primer div con formulario -->
         <div class="">

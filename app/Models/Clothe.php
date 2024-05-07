@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\SubCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Clothe extends Model
 {
@@ -16,8 +17,9 @@ class Clothe extends Model
        return $this -> hasMany(Photo::class);
     }
 
-    public function sizes(){
-        return $this -> belongsToMany(Size::class,'clothes_sizes');
+    public function sizes(): BelongsToMany
+    {
+        return $this->belongsToMany(Size::class, 'clothes_sizes')->withTimestamps();
     }
 
     public function colors(){

@@ -41,21 +41,6 @@ class ClotheController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //TODO
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Clothe $clothes)
-    {
-        //TODO
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -147,12 +132,8 @@ class ClotheController extends Controller
             }
         }
 
-        foreach($request -> sizes as $size){
-            ClothesSizes::create([
-                'clothe_id' => $clothes -> id,
-                'size_id' => $size
-            ]);
-        }
+            // Update sizes using sync method
+            $clothes->sizes()->sync($request->sizes);
 
             // Get temporary images and delete it
             Storage::deleteDirectory('livewire-tmp');
@@ -167,7 +148,6 @@ class ClotheController extends Controller
 
            return redirect() -> route('clothes.index')
            ->with('message-updated', 'Prenda Editada correctamente!');
-
     }
 
 

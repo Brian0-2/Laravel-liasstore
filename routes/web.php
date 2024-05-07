@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ClotheController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderClothesController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\SubCategoryController;
 
@@ -16,11 +18,11 @@ Route::get('/subcategory/{subcategory}',[CustomerController::class,'subcategory'
 Route::get('clothe/{clothe}',[CustomerController::class,'clothe']) -> name('clothe.show');
 
 
-
-
 Route::middleware(['auth', 'verified','role:customer|admin|supervisor'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+
+    Route::get('/cart',[CartController::class,'index']) -> name('cart.index');
 });
 
 
@@ -40,8 +42,9 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::resource('/categories',CategoryController::class);
 
     Route::get('/subcategories/create/{category}', [SubCategoryController::class, 'create'])->name('subcategories.create');
-
     Route::resource('/subcategories',SubCategoryController::class)->except(['create']);
+
+    Route::get('/orders',[OrderClothesController::class,'index']) -> name('order.index');
 
 });
 

@@ -47,7 +47,7 @@
                                 {{ __('Profile') }}
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('cart.index')">
-                                {{ __('Pedidos') }}
+                                {{ __('Carrito') }}
                             </x-dropdown-link>
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">

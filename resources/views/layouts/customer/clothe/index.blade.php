@@ -20,7 +20,12 @@
             <x-input-label id="clothe_name" >
                 Prenda: <span>{{$clothe -> name }}</span>
             </x-input-label>
-            <x-input-label id="clothe_description" value="{{ 'Detalles: ' . $clothe->description }}" />
+            <x-input-label id="clothe_description" >
+                Detalles : <span>{{$clothe->description}}</span>
+            </x-input-label>
+            <x-input-label id="clothe_price" >
+                Precio : $<span>{{$clothe->unit_price}}</span>
+            </x-input-label>
             <x-input-label :value="__('Imagenes de prenda')" />
             @foreach ($photos as $photo)
                 <x-images :file_url="$photo->file_url" />
@@ -31,8 +36,8 @@
             @empty
                 <p>No hay colores disponibles.</p>
             @endforelse
-            <x-input-label for="size" :value="__('Tallas disponibles')" />
-            <select name="size" id="size">
+            <x-input-label for="clothe_size" :value="__('Tallas disponibles')" />
+            <select name="clothe_size" id="clothe_size">
                 <option value="">--Seleccione Talla--</option>
                 @foreach ($sizes as $size)
                     <option value="{{ $size->id }}">{{ $size->name }}</option>
@@ -54,10 +59,9 @@
 @endsection
 
 @push('javascript')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        const sizeSelect = document.querySelector('#size');
+        const sizeSelect = document.querySelector('#clothe_size');
         const button = document.querySelector('#button');
         let currentSelect;
         const MAX_CLOTHES = 6;
@@ -71,7 +75,7 @@
 
         function buttonEnable(e){
             currentSelect = e.target.value;
-            // Validar selección
+            // Validate select
             if (currentSelect === '') {
                 button.disabled = true;
             } else {
@@ -79,25 +83,31 @@
             }
         };
 
-        // Función para agregar la prenda al carrito
+        // Add clothe to the cart to localStorage
         function addClothe() {
+            // Obtener la URL completa de la imagen
+            const currentImage = document.querySelector('img').src;
+            const lastIndex = currentImage.lastIndexOf('.');
+            const newImage = currentImage.substring(0, lastIndex);
+
             const cart = {
                 id: document.querySelector('#clothe_id span').textContent,
                 name: document.querySelector('#clothe_name span').textContent,
-                image: document.querySelector('img').src,
-                size: currentSelect,
+                image: newImage,
+                size: document.querySelector('#clothe_size').options[sizeSelect.selectedIndex].textContent,
+                price: parseInt(document.querySelector('#clothe_price span').textContent),
                 amount: 1
             };
 
             let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
 
-            // Verificar si la prenda ya está en el carrito
+            // Verify if the clothe is on the cart
             const existItem = cartItems.findIndex(item => item.id === cart.id && item.size === cart.size);
-            console.log(existItem);
 
             if (existItem !== -1) {
-                // Si la prenda ya está en el carrito, incrementar el amount si no supera el límite
+                //if the amount is less to 6
                 if (cartItems[0].amount < MAX_CLOTHES) {
+                    //sum amount
                     cartItems[0].amount++;
                 } else {
                     Swal.fire({
@@ -110,7 +120,7 @@
                     return;
                 }
             } else {
-                // Si la prenda no está en el carrito, agregarla si no supera el límite
+                // Verify if the clothe is on the cart and if the amount is less to 6
                 if (cart.amount <= MAX_CLOTHES) {
                     cartItems.push(cart);
                 } else {
@@ -125,7 +135,7 @@
                 }
             }
 
-            // Keep the cart
+            // Keep on the new cart
             localStorage.setItem('cart', JSON.stringify(cartItems));
 
             Swal.fire({
@@ -136,6 +146,5 @@
                 timer: 1500
             });
         };
-
     </script>
 @endpush

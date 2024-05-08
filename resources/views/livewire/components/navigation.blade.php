@@ -108,6 +108,9 @@
                     <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
                         {{ __('Perfil') }}
                     </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')">
+                        {{ __('Carrito') }}
+                    </x-responsive-nav-link>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <x-responsive-nav-link :href="route('logout')"

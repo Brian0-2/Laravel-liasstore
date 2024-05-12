@@ -12,17 +12,16 @@
 @section('main')
     <section class="p-5">
         <h2 class="cart-status text-center bg-slate-400 rounded-lg mb-2"></h2>
-        <div class="flex">
+        <div class="flex current-cart">
             <ul class="cart grid grid-cols-1 gap-4 items-center justify-items-center sm:grid-cols-2 md:grid-cols-3">
             </ul>
             <div class="summary">
-                <form action="">
-                    <p>Resumen de la compra</p>
-                    <p>Prendas: <span id="totalParts"></span></p>
-                    <p>Total: $<span id="total"></span></p>
+                <p>Resumen de la compra</p>
+                <p>Prendas: <span id="totalParts"></span></p>
+                <p>Total: $<span id="total"></span></p>
+                <input id="token" type="hidden" value="{{ csrf_token() }}">
 
-                    <x-primary-button>Apartar prendas</x-primary-button>
-                </form>
+                <x-button id="button">Apartar prendas</x-button>
             </div>
         </div>
     </section>
@@ -37,13 +36,15 @@
         const MIN_CLOTHES = 1;
 
         document.addEventListener('DOMContentLoaded', () => {
-            let currentCart = localStorage.getItem('cart');
-            currentCart = JSON.parse(currentCart);
+
+            let currentCart = JSON.parse(localStorage.getItem('cart')) || [];
+
 
             updateTotalAndSummary(currentCart);
             checkCartEmpty();
             totalParts(currentCart);
 
+            let index = 0;
             currentCart.forEach((cart, index) => {
                 const listDetails = document.createElement('LI');
                 listDetails.classList.add('flex');
@@ -77,7 +78,11 @@
 
                 let deleteClothe = document.querySelector(`.deleteClothe${index}`);
                 deleteClothe.addEventListener('click', () => dropCLothe(currentCart, cart, index));
+
+
             });
+
+            document.querySelector('#button').addEventListener('click', () =>addOrder(currentCart));
         });
 
         function incrementAmount(currentCart, cart, index) {
@@ -92,8 +97,9 @@
                     position: "top-end",
                     icon: "warning",
                     title: "Exceso de prendas!",
+                    toast: true,
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 2000
                 });
                 return;
             }
@@ -131,6 +137,7 @@
                     Swal.fire({
                         title: "Borrada correctamente",
                         text: "Tu prenda ha sido borrada de tu carrito!",
+                        toast: true,
                         icon: "success"
                     });
                     currentCart.splice(index, 1);
@@ -146,15 +153,15 @@
         }
 
         function checkCartEmpty() {
-            let cartStatus = document.querySelector('.cart-status');
 
-            let currentCart = localStorage.getItem('cart');
-            currentCart = JSON.parse(currentCart);
+            let currentCart = JSON.parse(localStorage.getItem('cart')) || [];
 
             if (!currentCart || currentCart.length === 0) {
-                cartStatus.textContent = "No hay artículos en el carrito";
+                document.querySelector('.cart-status').textContent = "No hay artículos en el carrito";
+                document.querySelector('.current-cart').classList.add('hidden');
             } else {
-                cartStatus.textContent = `Artículos en el carrito: ${currentCart.length}`;
+                document.querySelector('.cart-status').textContent = `Artículos en el carrito: ${currentCart.length}`;
+                document.querySelector('.current-cart').classList.remove('hidden');
             }
         }
 
@@ -165,12 +172,64 @@
         function updateTotalAndSummary(currentCart) {
             const total = currentCart.reduce((total, item) => total + item.price * item.amount, 0);
             document.querySelector('#total').textContent = total;
+
         }
 
         function totalParts (currentCart){
             const totalParts = currentCart.reduce((total, item) => total + item.amount, 0);
             document.querySelector('#totalParts').textContent = totalParts;
         }
+
+        async function addOrder(currentCart) {
+            const confirmation = await Swal.fire({
+                title: "¿Estás seguro?",
+                text: "Esta prenda se borrará de tu carrito!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                cancelButtonText: "Cancelar",
+                confirmButtonText: "Sí, Borrar!"
+            });
+
+            if (confirmation.isConfirmed) {
+                const total = currentCart.reduce((total, item) => total + item.price * item.amount, 0);
+                const dataToSend = {
+                    cart: currentCart,
+                    total: total
+                };
+
+                const dataItem = JSON.stringify(dataToSend);
+                const token = document.querySelector('#token').value;
+
+                try {
+                    const url = '/order';
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': token,
+                        },
+                        body: dataItem,
+                    });
+
+                    const resultData = await response.json();
+
+                    Swal.fire({
+                        title: resultData.message,
+                        toast: true,
+                        icon: "success"
+                    });
+
+                    localStorage.removeItem('cart');
+                    checkCartEmpty();
+
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+        }
+
 
     </script>
 @endpush

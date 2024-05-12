@@ -16,6 +16,7 @@ return new class extends Migration
 
             $table -> foreignId('order_id') ->constrained() -> onDelete('cascade');
             $table -> foreignId('clothe_id') ->constrained() -> onDelete('cascade');
+            $table -> foreignId('size_id') ->constrained() -> onDelete('cascade');
             $table -> integer('amount_total');
 
             $table->timestamps();

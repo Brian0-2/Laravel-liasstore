@@ -95,8 +95,10 @@
                 name: document.querySelector('#clothe_name span').textContent,
                 image: newImage,
                 size: document.querySelector('#clothe_size').options[sizeSelect.selectedIndex].textContent,
+                sizeId: document.querySelector('#clothe_size').value,
                 price: parseInt(document.querySelector('#clothe_price span').textContent),
                 amount: 1
+
             };
 
             let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
@@ -114,8 +116,9 @@
                         position: "top-end",
                         icon: "error",
                         title: "Exceso de prendas!",
+                        toast: true,
                         showConfirmButton: false,
-                        timer: 1500
+                        timer: 2000
                     });
                     return;
                 }
@@ -128,6 +131,7 @@
                         position: "top-end",
                         icon: "error",
                         title: "Exceso de prendas!",
+                        toast: true,
                         showConfirmButton: false,
                         timer: 1500
                     });
@@ -142,6 +146,7 @@
                 position: "top-end",
                 icon: "success",
                 title: "Tu Prenda se agregó correctamente!",
+                toast: true,
                 showConfirmButton: false,
                 timer: 1500
             });

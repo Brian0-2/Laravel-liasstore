@@ -43,11 +43,17 @@
                             </button>
                         </x-slot>
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.edit')">
+                            <x-dropdown-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
+                                <i class="fa-solid fa-signal"></i>
                                 {{ __('Profile') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('cart.index')">
+                            <x-dropdown-link :href="route('cart.index')" :active="request()->routeIs('cart.index')">
+                                <i class="fa-solid fa-cart-shopping"></i>
                                 {{ __('Carrito') }}
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('cart.show')" :active="request()->routeIs('cart.show')">
+                                <i class="fa-solid fa-bag-shopping"></i>
+                                {{ __('Pedidos') }}
                             </x-dropdown-link>
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
@@ -55,6 +61,7 @@
                                 <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
+                                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
                                     {{ __('Logout') }}
                                 </x-dropdown-link>
                             </form>
@@ -106,17 +113,25 @@
                 @endif
                 <div class="mt-3 space-y-1">
                     <x-responsive-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
+                        <i class="fa-solid fa-signal"></i>
                         {{ __('Perfil') }}
                     </x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('cart.index')" :active="request()->routeIs('cart.index')">
+                        <i class="fa-solid fa-cart-shopping"></i>
                         {{ __('Carrito') }}
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('cart.show')" :active="request()->routeIs('cart.show')">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        {{ __('Pedidos') }}
                     </x-responsive-nav-link>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                            {{ __('Cerrar Sesion') }}
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+
+                            {{ __('Logout') }}
                         </x-responsive-nav-link>
                     </form>
                 </div>

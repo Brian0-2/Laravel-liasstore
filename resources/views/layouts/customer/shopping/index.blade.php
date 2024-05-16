@@ -5,7 +5,7 @@
 @section('header')
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
         <i class="fa-solid fa-cart-shopping"></i>
-        {{ __('Cart') }}
+        {{ __('Carrito') }}
     </h2>
 @endsection
 
@@ -181,19 +181,20 @@
         }
 
         async function addOrder(currentCart) {
+            const total = currentCart.reduce((total, item) => total + item.price * item.amount, 0);
+
             const confirmation = await Swal.fire({
                 title: "¿Estás seguro?",
-                text: "Esta prenda se borrará de tu carrito!",
+                text: `Se creara tu pedido de inmediato por: $${total}`,
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
                 cancelButtonText: "Cancelar",
-                confirmButtonText: "Sí, Borrar!"
+                confirmButtonText: "Sí, Pedir!"
             });
 
             if (confirmation.isConfirmed) {
-                const total = currentCart.reduce((total, item) => total + item.price * item.amount, 0);
                 const dataToSend = {
                     cart: currentCart,
                     total: total
@@ -210,6 +211,7 @@
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': token,
                         },
+                        credentials: 'include',
                         body: dataItem,
                     });
 

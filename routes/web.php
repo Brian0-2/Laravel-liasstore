@@ -17,21 +17,24 @@ Route::get('/category/{category}',[CustomerController::class,'category'])->name(
 Route::get('/subcategory/{subcategory}',[CustomerController::class,'subcategory'])->name('subcategory.show');
 Route::get('/clothe/{clothe}',[CustomerController::class,'clothe']) -> name('clothe.show');
 
-//API
-Route::post('/order',[CartController::class,'store']) -> name('order.store');
-
 
 Route::middleware(['auth', 'verified','role:customer|admin|supervisor'])->group(function () {
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
+    //Cart controller
     Route::get('/cart',[CartController::class,'index']) -> name('cart.index');
+    Route::get('/ordered',[CartController::class,'show']) -> name('cart.show');
+    //API
+    Route::post('/order',[CartController::class,'store']) -> name('order.store');
 });
 
 
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 
-    Route::get('/admin',[AdminController::class,'index'])->name('admin');
+    Route::get('/admin',AdminController::class)->name('admin');
+
 
     Route::get('/users',[UserController::class,'index']) -> name('users.index');
     Route::get('/users/edit/{user}',[UserController::class,'edit']) -> name('users.edit');

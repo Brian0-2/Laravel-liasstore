@@ -35,7 +35,7 @@
                                 {{ __('Categorias') }}
                             </x-nav-link>
                             <x-nav-link :href="route('order.index')" :active="request()->routeIs('order.index')">
-                                <i class="fa-solid fa-cart-shopping"></i>
+                                <i class="fa-solid fa-bag-shopping"></i>
                                 {{ __('Pedidos') }}
                             </x-nav-link>
                     @endauth
@@ -62,6 +62,7 @@
                         </x-slot>
                         <x-slot name="content">
                             <x-dropdown-link :href="route('profile.edit')">
+                                <i class="fa-solid fa-signal"></i>
                                 {{ __('Perfil') }}
                             </x-dropdown-link>
                             <!-- Authentication -->
@@ -70,6 +71,7 @@
                                 <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
+                                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
                                     {{ __('Cerrar Sesion') }}
                                 </x-dropdown-link>
                             </form>
@@ -118,7 +120,7 @@
                     {{ __('Categorias') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('order.index')" :active="request()->routeIs('order.index')">
-                    <i class="fa-solid fa-cart-shopping"></i>
+                    <i class="fa-solid fa-bag-shopping"></i>
                     {{ __('Pedidos') }}
                 </x-responsive-nav-link>
             </div>
@@ -132,6 +134,7 @@
                 @endif
                 <div class="mt-3 space-y-1">
                     <x-responsive-nav-link :href="route('profile.edit')">
+                        <i class="fa-solid fa-signal"></i>
                         {{ __('Perfil') }}
                     </x-responsive-nav-link>
                     <form method="POST" action="{{ route('logout') }}">
@@ -139,6 +142,7 @@
                         <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
+                            <i class="fa-solid fa-arrow-right-from-bracket"></i>
                             {{ __('Cerrar Sesion') }}
                         </x-responsive-nav-link>
                     </form>

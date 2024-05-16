@@ -11,50 +11,61 @@
 @endsection
 
 @section('main')
-    <section class="grid grid-cols-1 gap-4  justify-items-center sm:grid-cols-2 p-5">
-        <div class="">
+
+    <section class="container mx-auto p-6 grid grid-cols-1 gap-8 sm:grid-cols-2">
+           <!-- Sección izquierda: Información del artículo -->
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">{{ __('Detalles de la prenda') }}</h3>
+                   <!-- Información sobre el artículo -->
+            <div class="mb-4">
             <x-input-label :value="__('Prenda')" />
-            <x-input-label id="clothe_id" >
-                Folio: <span>{{$clothe -> id}}</span>
-            </x-input-label>
-            <x-input-label id="clothe_name" >
-                Prenda: <span>{{$clothe -> name }}</span>
-            </x-input-label>
-            <x-input-label id="clothe_description" >
-                Detalles : <span>{{$clothe->description}}</span>
-            </x-input-label>
-            <x-input-label id="clothe_price" >
-                Precio : $<span>{{$clothe->unit_price}}</span>
-            </x-input-label>
-            <x-input-label :value="__('Imagenes de prenda')" />
-            @foreach ($photos as $photo)
-                <x-images :file_url="$photo->file_url" />
-            @endforeach
-            <x-input-label :value="__('Colores Disponibles')" />
-            @forelse ($colors as $color)
-                <div class="w-8 h-8 rounded-full border-4 border-black" style="background-color: {{ $color->name }}"></div>
-            @empty
-                <p>No hay colores disponibles.</p>
-            @endforelse
-            <x-input-label for="clothe_size" :value="__('Tallas disponibles')" />
-            <select name="clothe_size" id="clothe_size">
+            <p id="clothe_id" class="text-lg text-gray-700">Folio: <span class="font-semibold">{{ $clothe->id }}</span></p>
+            <p id="clothe_name" class="text-lg text-gray-700">Prenda: <span class="font-semibold">{{ $clothe->name }}</span></p>
+            <p id="clothe_description" class="text-lg text-gray-700"  > Detalles : <span class="font-semibold">{{$clothe->description}}</span></p>
+            <p id="clothe_price" class="text-lg text-gray-700"> Precio : $<span class="font-semibold">{{$clothe->unit_price}}</span></p>
+
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ __('Imágenes de la prenda') }}</h3>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                @foreach ($photos as $photo)
+                    <x-images :file_url="$photo->file_url" class="rounded-lg" />
+                @endforeach
+            </div>
+            <!-- Colores disponibles -->
+            <h3 class="text-lg font-semibold text-gray-800 my-4">{{ __('Colores disponibles') }}</h3>
+            <div class="flex flex-wrap gap-2">
+                @forelse ($colors as $color)
+                    <div class="w-8 h-8 rounded-full border border-gray-300" style="background-color: {{ $color->name }}"></div>
+                @empty
+                    <p class="text-gray-600">No hay colores disponibles.</p>
+                @endforelse
+            </div>
+            <h3 class="text-lg font-semibold text-gray-800 my-4">{{ __('Tallas disponibles') }}</h3>
+            <select name="clothe_size" id="clothe_size" class="block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <option value="">--Seleccione Talla--</option>
                 @foreach ($sizes as $size)
                     <option value="{{ $size->id }}">{{ $size->name }}</option>
                 @endforeach
             </select>
+            </div>
+        </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg flex flex-col items-start">
+                <h3 class="text-xl font-bold text-gray-800 mb-4">{{ __('Acciones') }}</h3>
 
-        </div>
-        <div class="">
-            <x-input-label for="name" :value="__('Acciones')" />
-            @auth
-                <button id="button" disabled class="bg-green-600 p-2 font-bold rounded-lg enabled:cursor-pointer disabled:opacity-10">Apartar</button>
-            @endauth
-            @guest
-                <a href="{{ route('login') }}" class="bg-orange-300 p-2 font-bold rounded-lg cursor-pointer">Inisiar Sesion
-                    para poder apartar</a>
-            @endguest
-        </div>
+                <!-- Botón para apartar -->
+                @auth
+                    <button id="button" disabled class="w-full bg-green-600 text-white font-bold py-2 rounded-lg transition duration-300 hover:bg-green-700 cursor-pointer disabled:opacity-50">
+                        Apartar
+                    </button>
+                @endauth
+
+                <!-- Botón para iniciar sesión -->
+                @guest
+                    <a href="{{ route('login') }}" class="w-full bg-orange-500 text-white font-bold py-2 rounded-lg transition duration-300 hover:bg-orange-600 text-center">
+                        Iniciar sesión para apartar
+                    </a>
+                @endguest
+
+            </div>
     </section>
 @endsection
 

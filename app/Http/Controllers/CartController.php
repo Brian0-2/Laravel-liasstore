@@ -22,6 +22,15 @@ class CartController extends Controller
         ]);
     }
 
+    public function show(){
+
+        $orders = Order::where('user_id' , Auth::user() -> id) -> get();
+
+        return view('layouts.customer.shopping.ordered',[
+            'orders' => $orders
+        ]);
+    }
+
     public function store(Request $request)
     {
         try {
@@ -36,6 +45,7 @@ class CartController extends Controller
                 'cart.*.amount' => 'required|integer',
                 'total' => 'required|numeric',
             ]);
+            
 
             $order = Order::create([
                 'state' => 'pending',

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table -> id();
 
-            $table -> enum('state',['cart','pending','complete']);
+            $table -> enum('state',['pending','complete']);
             $table -> decimal('total', 10, 2);
             $table -> foreignId('user_id') -> constrained() -> onDelete('cascade');
 

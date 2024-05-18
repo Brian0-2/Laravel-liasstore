@@ -11,6 +11,6 @@
 
 @section('main')
     <div class="p-5">
-        <p>Main</p>
+        <livewire:admin.order-index />
     </div>
 @endsection

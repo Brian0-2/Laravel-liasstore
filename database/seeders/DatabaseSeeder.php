@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\UserSeeder;
+use Database\Seeders\OrderSeeder;
 use Database\Seeders\ClotheSeeder;
 use Database\Seeders\CategorySeeder;
 use Database\Seeders\ProviderSeeder;
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
             SubcategoriesSeeder::class,
             SizeSeeder::class,
             ClotheSeeder::class,
+            OrderSeeder::class,
         ]);
     }
 }

@@ -20,6 +20,10 @@ class OrderDetails extends Component
         $this -> orders = Order::where('user_id' , Auth::user() -> id) -> get();
     }
 
+    public function placeholder(){
+        return view('livewire.spiners.loading');
+    }
+    
     #[On('showOrderDetails($orderId)')]
     public function showOrderDetails($orderId)
     {

@@ -1,14 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ClotheController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\OrderClothesController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\SubCategoryController;
 
@@ -21,18 +21,14 @@ Route::get('/category/{category}',[CustomerController::class,'category'])->name(
 Route::get('/subcategory/{subcategory}',[SubCategoryController::class,'subcategory'])->name('subcategory.show');
 
 
-
-
 Route::middleware(['auth', 'verified','role:customer|admin|supervisor'])->group(function () {
-
+    //Profile actions
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     //Cart controller
     Route::get('/cart',[CartController::class,'index']) -> name('cart.index');
     Route::get('/ordered',[CartController::class,'show']) -> name('cart.show');
-
-    Route::get('/user-order/{order}',[CustomerController::class,'userOrder']) -> name('user-order');
 
     //API
     Route::post('/order',[CartController::class,'store']) -> name('order.store');
@@ -42,7 +38,6 @@ Route::middleware(['auth', 'verified','role:customer|admin|supervisor'])->group(
 Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
 
     Route::get('/admin',AdminController::class)->name('admin');
-
 
     Route::get('/users',[UserController::class,'index']) -> name('users.index');
     Route::get('/users/edit/{user}',[UserController::class,'edit']) -> name('users.edit');
@@ -58,7 +53,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->group(function () {
     Route::get('/subcategories/create/{category}', [SubCategoryController::class, 'create'])->name('subcategories.create');
     Route::resource('/subcategories',SubCategoryController::class)->except(['create'],['show']);
 
-    Route::get('/orders',[OrderClothesController::class,'index']) -> name('order.index');
+    Route::resource('/orders',OrderController::class);
 
 });
 

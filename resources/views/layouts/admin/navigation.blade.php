@@ -34,7 +34,7 @@
                                 <i class="fa-brands fa-shopify"></i>
                                 {{ __('Categorias') }}
                             </x-nav-link>
-                            <x-nav-link :href="route('order.index')" :active="request()->routeIs('order.index')">
+                            <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
                                 <i class="fa-solid fa-bag-shopping"></i>
                                 {{ __('Pedidos') }}
                             </x-nav-link>
@@ -119,7 +119,7 @@
                     <i class="fa-brands fa-shopify"></i>
                     {{ __('Categorias') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link :href="route('order.index')" :active="request()->routeIs('order.index')">
+                <x-responsive-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.index')">
                     <i class="fa-solid fa-bag-shopping"></i>
                     {{ __('Pedidos') }}
                 </x-responsive-nav-link>

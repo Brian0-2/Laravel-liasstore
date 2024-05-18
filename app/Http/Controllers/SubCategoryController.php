@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SubCategoryRequest;
+use App\Models\Clothe;
 use App\Models\Category;
 use App\Models\SubCategory;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use Intervention\Image\ImageManagerStatic as Image;
+use App\Http\Requests\SubCategoryRequest;
 use DragonCode\Support\Facades\Filesystem\File;
+use Intervention\Image\ImageManagerStatic as Image;
 
 
 
@@ -54,6 +55,24 @@ class SubCategoryController extends Controller
         return redirect() -> back()-> with('message-created','Creado correctamente');
     }
 
+    public function subcategory(subcategory $subcategory){
+        $category = Category::find($subcategory->category_id);
+
+        $clothes = Clothe::with(['photos', 'sizes'])
+        ->where('sub_category_id', $subcategory->id)
+        ->paginate(10);
+
+        $clothes->each(function ($clothe) {
+            $clothe->file_url = $clothe->photos->min('file_url');
+            $clothe->sizes = $clothe->sizes->pluck('name', 'id')->toArray();
+        });
+
+        return view('layouts.customer.categories.subcategories', [
+            'clothes' => $clothes,
+            'subcategory' => $subcategory,
+            'category' => $category
+        ]);
+    }
 
     /**
      * Show the form for editing the specified resource.

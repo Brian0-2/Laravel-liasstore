@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
-use App\Models\Clothe;
+use App\Models\Order;
 use App\Models\Photo;
+use App\Models\Clothe;
+use App\Models\Category;
 use App\Models\SubCategory;
+use App\Models\OrderClothes;
 use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
@@ -29,26 +31,9 @@ class CustomerController extends Controller
         ]);
     }
 
-    public function subcategory(subcategory $subcategory){
-        $category = Category::find($subcategory->category_id);
 
-        $clothes = Clothe::with(['photos', 'sizes'])
-        ->where('sub_category_id', $subcategory->id)
-        ->paginate(10);
-
-        $clothes->each(function ($clothe) {
-            $clothe->file_url = $clothe->photos->min('file_url');
-            $clothe->sizes = $clothe->sizes->pluck('name', 'id')->toArray();
-        });
-
-        return view('layouts.customer.categories.subcategories', [
-            'clothes' => $clothes,
-            'subcategory' => $subcategory,
-            'category' => $category
-        ]);
-    }
-
-    public function clothe(Clothe $clothe){
+    public function clothe(Clothe $clothe)
+    {
 
        $photos =  $clothe -> photos;
        $colors = $clothe -> colors;
@@ -65,4 +50,9 @@ class CustomerController extends Controller
             'category' => $category
         ]);
     }
+
+    public function search(){
+        return view('layouts.customer.clothe.search');
+    }
+
 }

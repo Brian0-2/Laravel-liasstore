@@ -30,4 +30,17 @@ class Clothe extends Model
     {
         return $this->belongsTo(SubCategory::class);
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class, 'order_clothes')
+                    ->withPivot('size_id', 'amount_total')
+                    ->withTimestamps();
+    }
+
+    // Una prenda tiene muchas OrderClothes (relación directa)
+    public function orderClothes()
+    {
+        return $this->hasMany(OrderClothe::class);
+    }
 }

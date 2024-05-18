@@ -11,7 +11,7 @@
 
 @section('main')
     <section class="p-5">
-        <h2 class="cart-status text-center bg-slate-400 rounded-lg mb-2"></h2>
+        <h2 class="cart-status text-center rounded-lg mb-2"></h2>
         <div class="flex current-cart">
             <ul class="cart grid grid-cols-1 gap-4 items-center justify-items-center sm:grid-cols-2 md:grid-cols-3">
             </ul>

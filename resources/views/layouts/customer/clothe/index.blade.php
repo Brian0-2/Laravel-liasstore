@@ -18,14 +18,13 @@
             <h3 class="text-xl font-bold text-gray-800 mb-4">{{ __('Detalles de la prenda') }}</h3>
                    <!-- Información sobre el artículo -->
             <div class="mb-4">
-            <x-input-label :value="__('Prenda')" />
             <p id="clothe_id" class="text-lg text-gray-700">Folio: <span class="font-semibold">{{ $clothe->id }}</span></p>
             <p id="clothe_name" class="text-lg text-gray-700">Prenda: <span class="font-semibold">{{ $clothe->name }}</span></p>
             <p id="clothe_description" class="text-lg text-gray-700"  > Detalles : <span class="font-semibold">{{$clothe->description}}</span></p>
             <p id="clothe_price" class="text-lg text-gray-700"> Precio : $<span class="font-semibold">{{$clothe->unit_price}}</span></p>
 
             <h3 class="text-lg font-semibold text-gray-800 mb-2">{{ __('Imágenes de la prenda') }}</h3>
-            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 justify-items-center">
                 @foreach ($photos as $photo)
                     <x-images :file_url="$photo->file_url" class="rounded-lg" />
                 @endforeach
@@ -97,19 +96,23 @@
         // Add clothe to the cart to localStorage
         function addClothe() {
             // Obtener la URL completa de la imagen
-            const currentImage = document.querySelector('img').src;
+            const imgElement = document.querySelector('img');
+            const currentImage = imgElement ? imgElement.src : ''; // Usar valor vacío si no se encuentra la imagen
             const lastIndex = currentImage.lastIndexOf('.');
-            const newImage = currentImage.substring(0, lastIndex);
+            const newImage = lastIndex !== -1 ? currentImage.substring(0, lastIndex) : ''; // Asegurarse de que newImage sea vacío si no se encuentra una extensión válida
+
+            const clotheIdElement = document.querySelector('#clothe_id span');
+            const clotheNameElement = document.querySelector('#clothe_name span');
+            const sizeSelect = document.querySelector('#clothe_size');
 
             const cart = {
-                id: document.querySelector('#clothe_id span').textContent,
-                name: document.querySelector('#clothe_name span').textContent,
+                id: clotheIdElement ? clotheIdElement.textContent : '',
+                name: clotheNameElement ? clotheNameElement.textContent : '',
                 image: newImage,
-                size: document.querySelector('#clothe_size').options[sizeSelect.selectedIndex].textContent,
-                sizeId: document.querySelector('#clothe_size').value,
-                price: parseInt(document.querySelector('#clothe_price span').textContent),
+                size: sizeSelect ? sizeSelect.options[sizeSelect.selectedIndex].textContent : '',
+                sizeId: sizeSelect ? sizeSelect.value : '',
+                price: parseInt(document.querySelector('#clothe_price span').textContent) || 0,
                 amount: 1
-
             };
 
             let cartItems = JSON.parse(localStorage.getItem('cart')) || [];

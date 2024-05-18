@@ -10,7 +10,7 @@
 @endsection
 
 @section('main')
-    <main class="p-6 bg-gray-100">
+    <section class="p-6 bg-gray-100">
 
         <div class="mb-4 bg-white p-6 rounded-lg">
             <a class="bg-blue-500 p-3 rounded-lg mb-4" href="{{ route('categories.create') }}">Crear nueva categoría <span
@@ -40,11 +40,11 @@
 
                         <x-link class="mt-4 px-4 py-2 bg-blue-800 text-white rounded-lg font-semibold hover:bg-blue-900 transition"
                             href="{{ route('subcategories.create', $category->id) }}">
-                            {{ __('Crear Subcategoría') }}
+                            {{ __('Crear o Editar Subcategoría') }}
                         </x-link>
                     </div>
                 @endforeach
             </div>
         </div>
-    </main>
+    </section>
 @endsection

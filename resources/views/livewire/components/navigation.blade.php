@@ -19,8 +19,12 @@
                     <x-nav-link :href="route('category.show', $category->id)" :active="request()->segment(2) == $category->id">
                         {{ $category->name }}
                     </x-nav-link>
-                @endforeach
 
+                @endforeach
+                <x-nav-link class="gap-2"  :href="route('clothe.search')" :active="request()->routeIs('clothe.search')">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    {{__('Search')}}
+                </x-nav-link>
                 </div>
             </div>
             <!-- Settings Dropdown -->
@@ -55,6 +59,10 @@
                                 <i class="fa-solid fa-bag-shopping"></i>
                                 {{ __('Pedidos') }}
                             </x-dropdown-link>
+                            <x-dropdown-link :href="route('clothe.search')" :active="request()->routeIs('clothe.search')">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                {{__('Search')}}
+                            </x-dropdown-link>
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -71,7 +79,8 @@
                 {{-- NO autenticado --}}
                 @guest
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
+                        <x-nav-link class="gap-2" :href="route('login')" :active="request()->routeIs('login')">
+                            <i class="fa-solid fa-right-to-bracket"></i>
                             {{ __('Login') }}
                         </x-nav-link>
                     </div>
@@ -102,6 +111,10 @@
                         {{ $category -> name }}
                     </x-responsive-nav-link>
                 @endforeach
+                    <x-responsive-nav-link :href="route('clothe.search')" :active="request()->routeIs('clothe.search')">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        {{__('Search')}}
+                    </x-responsive-nav-link>
             </div>
             <!-- Responsive Settings Options -->
             <div class="pt-4 pb-1 border-t border-gray-200">
@@ -130,7 +143,6 @@
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
                             <i class="fa-solid fa-arrow-right-from-bracket"></i>
-
                             {{ __('Logout') }}
                         </x-responsive-nav-link>
                     </form>
@@ -145,7 +157,14 @@
                     {{ $category -> name }}
                 </x-responsive-nav-link>
                 @endforeach
-
+                <x-dropdown-link :href="route('clothe.search')" :active="request()->routeIs('clothe.search')">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    {{__('Search')}}
+                </x-dropdown-link>
+                <x-dropdown-link :href="route('login')" :active="request()->routeIs('login')">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    {{ __('Login') }}
+                </x-dropdown-link>
             </div>
         @endguest
     </div>

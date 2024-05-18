@@ -13,7 +13,6 @@ use Illuminate\Validation\ValidationException;
 
 class CartController extends Controller
 {
-
     //
     public function index(){
 
@@ -38,14 +37,12 @@ class CartController extends Controller
             $request->validate([
                 'cart.*.id' => 'required|integer',
                 'cart.*.name' => 'required|string',
-                'cart.*.image' => 'required|url',
-                'cart.*.size' => 'required|string',
                 'cart.*.sizeId' => 'required|string',
                 'cart.*.price' => 'required|numeric',
                 'cart.*.amount' => 'required|integer',
                 'total' => 'required|numeric',
             ]);
-            
+
 
             $order = Order::create([
                 'state' => 'pending',
@@ -63,7 +60,7 @@ class CartController extends Controller
                 ]);
             }
 
-             return ApiResponse::success('Orden ingresada correctamente!',201);
+            return ApiResponse::success('Orden ingresada correctamente!',201);
 
         } catch (ValidationException $e) {
             $errors = $e -> validator -> errors() -> toArray();

@@ -14,14 +14,15 @@ class OrderSeeder extends Seeder
      */
     public function run(): void
     {
-        $orders = Order::factory()->count(10)->create();
+        $orders = Order::factory()->count(100)->create();
 
         foreach($orders as $order){
             OrderClothes::create([
+                'amount' => fake()->numberBetween(1, 5),
                 'order_id' => $order -> id,
                 'clothe_id' => fake()->numberBetween(1, 10),
                 'size_id' => fake()->numberBetween(1, 5),
-                'amount_total'=> fake()->numberBetween(1, 2000)
+                'total'=> fake()->numberBetween(1, 2000)
             ]);
         }
 

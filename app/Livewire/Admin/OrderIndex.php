@@ -3,7 +3,9 @@
 namespace App\Livewire\Admin;
 
 use App\Models\User;
+use App\Models\Order;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
 
 class OrderIndex extends Component
@@ -13,6 +15,7 @@ class OrderIndex extends Component
     public $search;
     public $search_id;
     public $orderState = 'pending';
+    public $order;
 
     public function updatingSearch()
     {

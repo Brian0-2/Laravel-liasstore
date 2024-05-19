@@ -52,11 +52,13 @@ class CartController extends Controller
 
 
             foreach($request -> cart as $cart){
+
                 OrderClothes::create([
+                    'amount' => intval($cart['amount']),
                     'order_id' => $order -> id,
                     'clothe_id' => $cart['id'],
                     'size_id' => $cart['sizeId'],
-                    'amount_total' => $request -> total
+                    'total' => $request -> total
                 ]);
             }
 

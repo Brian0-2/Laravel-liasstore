@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -32,12 +34,19 @@ class OrderController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
         //
+        $user = User::find($id);
+        $total = Order::where('user_id', $id) -> count();
+
+        return view('layouts.admin.orders.show',[
+            'userId' => $id,
+            'user' => $user,
+            'total' => $total,
+        ]);
+
     }
 
     /**

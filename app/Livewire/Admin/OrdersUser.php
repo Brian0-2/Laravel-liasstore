@@ -1,21 +1,20 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Admin;
 
 use App\Models\Order;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Livewire\WithPagination;
-use Illuminate\Support\Facades\Auth;
 
-
-class OrderDetails extends Component
+class OrdersUser extends Component
 {
     use WithPagination;
 
-    public $orderId;
+    public $userId;
     public $open = false;
     public $clothes;
+    public $orderId;
 
     public function placeholder(){
         return view('livewire.spiners.loading');
@@ -35,12 +34,11 @@ class OrderDetails extends Component
 
     public function render()
     {
-        $orders = Order::where('user_id', Auth::id())
-            // ->where('state', 'pending')
-            ->orderBy('created_at', 'desc')
-            ->paginate(2);
+        $orders = Order::where('user_id',$this -> userId)
+        ->orderBy('created_at', 'desc')
+        ->paginate(5);
 
-        return view('livewire.order-details',[
+        return view('livewire.admin.orders-user',[
             'orders' => $orders
         ]);
     }

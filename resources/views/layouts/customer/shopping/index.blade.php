@@ -10,18 +10,18 @@
 @endsection
 
 @section('main')
-    <section class="p-5">
-        <h2 class="cart-status text-center rounded-lg mb-2"></h2>
-        <div class="flex current-cart">
-            <ul class="cart grid grid-cols-1 gap-4 items-center justify-items-center sm:grid-cols-2 md:grid-cols-3">
+    <section class="p-5 bg-gray-100 min-h-screen">
+        <h2 class="cart-status text-center bg-black rounded-lg mb-4 py-2 text-white font-bold"></h2>
+        <div class="flex current-cart flex-col md:flex-row gap-4">
+            <ul class="cart grid grid-cols-1 gap-4 items-center justify-items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             </ul>
-            <div class="summary">
-                <p>Resumen de la compra</p>
-                <p>Prendas: <span id="totalParts"></span></p>
-                <p>Total: $<span id="total"></span></p>
+            <div class="summary bg-white p-6 rounded-lg shadow-lg md:w-1/3 lg:w-1/4 md:sticky md:top-10">
+                <h3 class="text-lg font-bold mb-4">Resumen de la compra</h3>
+                <p class="mb-2">Prendas: <span id="totalParts" class="font-semibold"></span></p>
+                <p class="mb-2">Total: $<span id="total" class="font-semibold"></span></p>
                 <input id="token" type="hidden" value="{{ csrf_token() }}">
 
-                <x-button id="button">Apartar prendas</x-button>
+                <x-button id="button" class="mt-4 w-full bg-blue-500 hover:bg-blue-700 text-white py-2 rounded-md">Apartar prendas</x-button>
             </div>
         </div>
     </section>
@@ -31,40 +31,44 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-
         const MAX_CLOTHES = 6;
         const MIN_CLOTHES = 1;
 
         document.addEventListener('DOMContentLoaded', () => {
-
             let currentCart = JSON.parse(localStorage.getItem('cart')) || [];
-
 
             updateTotalAndSummary(currentCart);
             checkCartEmpty();
             totalParts(currentCart);
 
-            let index = 0;
             currentCart.forEach((cart, index) => {
                 const listDetails = document.createElement('LI');
-                listDetails.classList.add('flex');
+                listDetails.classList.add('flex', 'flex-col', 'items-center', 'justify-between', 'bg-white', 'p-4', 'rounded-lg', 'shadow-md', 'transition', 'transform', 'hover:scale-105', 'space-y-4');
 
                 listDetails.innerHTML = `
-                <div class="">
+                <div class="flex flex-col items-center">
                     <picture>
                         <source srcset="${cart.image}.webp" type="image/webp">
                         <source srcset="${cart.image}.png" type="image/png">
-                        <img loading="lazy" width="200px" height="300px" src="${cart.image}.png" alt="imagen ${cart.image}">
+                        <img loading="lazy" class="w-32 h-48 object-cover rounded-md shadow-md" src="${cart.image}.png" alt="imagen ${cart.image}">
                     </picture>
-                    <p>Precio: $<span>${cart.price}</span></p>
-                    <p>Talla seleccionada: <span>${cart.size}</span></p>
+                    <div class="mt-2 text-center">
+                        <p class="text-lg font-semibold text-gray-800">Precio: $<span>${cart.price}</span></p>
+                        <p class="text-sm text-gray-600">Talla seleccionada: <span>${cart.size}</span></p>
+                    </div>
                 </div>
-                <div class="">
-                    <p class="text-center font-bold">Acciones</p>
-                    <button class="addClothe${index}">Sumar</button>
-                    <p>${cart.amount}</p>
-                    <button class="removeClothe${index}">Restar</button>
-                    <button class="deleteClothe${index}">Eliminar</button>
+                <div class="flex flex-col items-center mt-4">
+                    <p class="text-center font-bold mb-2 text-gray-700">Acciones</p>
+                    <div class="flex items-center space-x-2">
+                        <button class="addClothe${index} border border-gray-300 text-black px-2 py-1 rounded-md">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                        <p class="text-lg font-semibold text-gray-800">${cart.amount}</p>
+                        <button class="removeClothe${index} border border-gray-300 text-black px-2 py-1 rounded-md">
+                            <i class="fa-solid fa-minus"></i>
+                        </button>
+                        <button class="deleteClothe${index} bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600">Eliminar</button>
+                    </div>
                 </div>
                 `;
 
@@ -77,12 +81,10 @@
                 removeClothe.addEventListener('click', () => decrementAmount(currentCart, cart, index));
 
                 let deleteClothe = document.querySelector(`.deleteClothe${index}`);
-                deleteClothe.addEventListener('click', () => dropCLothe(currentCart, cart, index));
-
-
+                deleteClothe.addEventListener('click', () => dropClothe(currentCart, cart, index));
             });
 
-            document.querySelector('#button').addEventListener('click', () =>addOrder(currentCart));
+            document.querySelector('#button').addEventListener('click', () => addOrder(currentCart));
         });
 
         function incrementAmount(currentCart, cart, index) {
@@ -113,7 +115,7 @@
                 updateTotalAndSummary(currentCart);
                 totalParts(currentCart);
             } else {
-                dropCLothe(currentCart, cart, index);
+                dropClothe(currentCart, cart, index);
             }
         }
 
@@ -122,7 +124,7 @@
             amountElement.textContent = cart.amount;
         }
 
-        function dropCLothe(currentCart, cart, index) {
+        function dropClothe(currentCart, cart, index) {
             Swal.fire({
                 title: "¿Estás seguro?",
                 text: "Esta prenda se borrará de tu carrito!",
@@ -153,7 +155,6 @@
         }
 
         function checkCartEmpty() {
-
             let currentCart = JSON.parse(localStorage.getItem('cart')) || [];
 
             if (!currentCart || currentCart.length === 0) {
@@ -172,10 +173,9 @@
         function updateTotalAndSummary(currentCart) {
             const total = currentCart.reduce((total, item) => total + item.price * item.amount, 0);
             document.querySelector('#total').textContent = total;
-
         }
 
-        function totalParts (currentCart){
+        function totalParts(currentCart) {
             const totalParts = currentCart.reduce((total, item) => total + item.amount, 0);
             document.querySelector('#totalParts').textContent = totalParts;
         }
@@ -185,7 +185,7 @@
 
             const confirmation = await Swal.fire({
                 title: "¿Estás seguro?",
-                text: `Se creara tu pedido de inmediato por: $${total}`,
+                text: `Se creará tu pedido de inmediato por: $${total}`,
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -223,15 +223,17 @@
                         icon: "success"
                     });
 
-                    localStorage.removeItem('cart');
-                    checkCartEmpty();
-
+                    // localStorage.removeItem('cart');
+                    // checkCartEmpty();
                 } catch (error) {
-                    console.error('Error:', error);
+                    console.error('Error adding order:', error);
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Hubo un error al procesar tu pedido.',
+                        icon: 'error'
+                    });
                 }
             }
         }
-
-
     </script>
 @endpush

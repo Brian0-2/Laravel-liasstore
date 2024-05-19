@@ -18,7 +18,7 @@ class Size extends Model
     public function orders()
     {
         return $this->belongsToMany(Order::class, 'order_clothes')
-                    ->withPivot('clothe_id', 'amount_total')
+                    ->withPivot('clothe_id', 'total')
                     ->withTimestamps();
     }
 

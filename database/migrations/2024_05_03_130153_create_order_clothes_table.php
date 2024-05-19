@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('order_clothes', function (Blueprint $table) {
             $table->id();
 
+            $table -> integer('amount');
             $table -> foreignId('order_id') ->constrained() -> onDelete('cascade');
             $table -> foreignId('clothe_id') ->constrained() -> onDelete('cascade');
             $table -> foreignId('size_id') ->constrained() -> onDelete('cascade');
-            $table -> integer('amount_total');
+            $table -> integer('total');
 
             $table->timestamps();
         });

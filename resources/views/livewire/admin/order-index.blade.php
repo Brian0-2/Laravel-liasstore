@@ -21,28 +21,32 @@
         <table class="w-full my-0 align-middle text-dark border-neutral-200">
             <tbody>
                 <tr class="bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 border-dashed last:border-b-0">
-                    <th class="">ID</th>
-                    <th class="">Nombre</th>
-                    <th class="">Detalles</th>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Detalles</th>
                 </tr>
-                @forelse ($users as $user )
+
+                @forelse ($users as $user)
                 <tr class="{{ $loop->iteration % 2 == 0 ? 'bg-gray-100' : 'bg-gray-200' }} space-y-2">
-                    <td class="">{{ $user -> id }}</td>
-                    <td class="">{{ $user -> name }}</td>
+                    <td>{{ $user->id }}</td>
+                    <td>{{ $user->name }}</td>
                     <td class="flex justify-end">
-                    <x-link href="{{route('orders.show', $user -> id)}}" class="bg-orange-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-600 transition duration-300 ease-in-out">
-                        Ver ordenes
-                    </x-link>
+                        <x-link href="{{ route('orders.show', $user->id) }}"
+                            class="bg-orange-500 text-white px-4 py-2 rounded-lg font-semibold hover:bg-orange-600 transition duration-300 ease-in-out">
+                            Ver ordenes
+                        </x-link>
                     </td>
                 </tr>
                 @empty
-                    <p>No se encontraron resultados...</p>
+                <tr>
+                    <td colspan="3" class="text-center">No se encontraron resultados...</td>
+                </tr>
                 @endforelse
             </tbody>
         </table>
-    </div>
-    <div class="">
-    {{ $users->links() }}
-    </div>
+        <div class="">
+            {{ $users->links() }}
+        </div>
 
-</div>
+
+    </div>

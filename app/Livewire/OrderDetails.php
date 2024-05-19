@@ -16,6 +16,8 @@ class OrderDetails extends Component
     public $orderId;
     public $open = false;
     public $clothes;
+    public $totalAmount;
+    public $total;
 
     public function placeholder(){
         return view('livewire.spiners.loading');
@@ -28,8 +30,13 @@ class OrderDetails extends Component
 
        $order = Order::find($orderId);
 
-        // Asignar los datos a la propiedad del componente
-        $this->clothes = $order->load('clothes.photos');
+        $this->clothes = $order->clothes()->with(['photos', 'orderClothes','sizes']) -> get();
+
+        foreach ($this->clothes as $index => $clothe) {
+            $this -> totalAmount += $clothe -> orderClothes[$index++] -> amount;
+        }
+
+        $this->total = $this -> totalAmount;
 
     }
 

@@ -223,8 +223,8 @@
                         icon: "success"
                     });
 
-                    // localStorage.removeItem('cart');
-                    // checkCartEmpty();
+                     localStorage.removeItem('cart');
+                     checkCartEmpty();
                 } catch (error) {
                     console.error('Error adding order:', error);
                     Swal.fire({

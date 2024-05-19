@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\SubCategory;
+use App\Models\OrderClothes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -34,13 +35,12 @@ class Clothe extends Model
     public function orders()
     {
         return $this->belongsToMany(Order::class, 'order_clothes')
-                    ->withPivot('size_id', 'total')
                     ->withTimestamps();
     }
 
     // Una prenda tiene muchas OrderClothes (relación directa)
     public function orderClothes()
     {
-        return $this->hasMany(OrderClothe::class);
+        return $this->hasMany(OrderClothes::class);
     }
 }

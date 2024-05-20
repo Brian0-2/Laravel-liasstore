@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             SubcategoriesSeeder::class,
             SizeSeeder::class,
-            ClotheSeeder::class,
+            // ClotheSeeder::class,
             // OrderSeeder::class,
         ]);
     }

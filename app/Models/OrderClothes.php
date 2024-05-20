@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Order;
+use App\Models\Clothe;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class OrderClothes extends Model
 {
@@ -16,7 +18,7 @@ class OrderClothes extends Model
         return $this->belongsTo(Order::class);
     }
 
- 
+
     public function clothe()
     {
         return $this->belongsTo(Clothe::class);

@@ -16,8 +16,10 @@ class OrderDetails extends Component
     public $orderId;
     public $open = false;
     public $clothes;
-    public $totalAmount;
+    public $totalAmount = 0;
     public $total;
+    public $orderState = 'pending';
+
 
     public function placeholder(){
         return view('livewire.spiners.loading');
@@ -26,29 +28,42 @@ class OrderDetails extends Component
     #[On('showOrderDetails($orderId)')]
     public function showOrderDetails($orderId)
     {
-       $this -> open = true;
+        $this->open = true;
+        $this->totalAmount = 0;
+        $order = Order::find($orderId);
 
-       $order = Order::find($orderId);
+        if ($order) {
+            $this->clothes = $order->clothes()->with(['photos', 'orderClothes', 'sizes'])->get();
 
-        $this->clothes = $order->clothes()->with(['photos', 'orderClothes','sizes']) -> get();
+            foreach ($this->clothes as $index => $clothe) {
+                $this->totalAmount += $clothe->orderClothes -> sum('amount');
+            }
 
-        foreach ($this->clothes as $index => $clothe) {
-            $this -> totalAmount += $clothe -> orderClothes[$index++] -> amount;
+            $this->total = $this->totalAmount;
         }
+    }
 
-        $this->total = $this -> totalAmount;
-
+    public function filterByOrderState($state)
+    {
+        $this->orderState = $state;
+        $this->resetPage();
     }
 
     public function render()
     {
-        $orders = Order::where('user_id', Auth::id())
-            // ->where('state', 'pending')
-            ->orderBy('created_at', 'desc')
-            ->paginate(2);
+        $orders = Order::where('user_id', Auth::id());
 
-        return view('livewire.order-details',[
+        if ($this->orderState === 'pending') {
+            $orders->where('state', 'pending');
+        } elseif ($this->orderState === 'complete') {
+            $orders->where('state', 'complete');
+        }
+
+        $orders = $orders->orderBy('created_at', 'desc')->paginate(2);
+
+        return view('livewire.order-details', [
             'orders' => $orders
         ]);
     }
+
 }
